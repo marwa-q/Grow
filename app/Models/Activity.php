@@ -21,6 +21,7 @@ class Activity extends Model
         'category_id',
         'created_by',
         'donation_goal',
+        'max_participants',
     ];
 
     // Relationships

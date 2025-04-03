@@ -1,15 +1,21 @@
 <?php
 use App\Http\Controllers\ActivityController;
 use App\Http\Controllers\ProfileController;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AboutController;
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('home');
 
 Route::get('/dashboard', function () {
+    // dd(Auth::user()->role);
     return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+})->middleware(['auth', 'verified'])
+    ->can('access', User::class)
+    ->name('dashboard');
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -28,4 +34,5 @@ Route::get('/about', [AboutController::class, 'index'])->name('about');
 Route::get('/volunteers', [AboutController::class, 'getVolunteers'])->name('volunteers.get');
 
 
-require __DIR__.'/auth.php';
+
+require __DIR__ . '/auth.php';
