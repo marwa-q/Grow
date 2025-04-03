@@ -1,36 +1,40 @@
 <!-- resources/views/layouts/admin.blade.php -->
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" dir="ltr">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     
-    <title>@yield('title', 'لوحة تحكم المشرف') - {{ config('app.name') }}</title>
+    <title>@yield('title', 'Admin Dashboard') - {{ config('app.name') }}</title>
  
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
     
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.rtl.min.css">
+    <!-- Standard LTR Bootstrap -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
  
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
         body {
             font-family: 'Tajawal', sans-serif;
+            direction: ltr;
+            text-align: left;
         }
         
         .sidebar {
             position: fixed;
             top: 0;
-            right: 0;
+            left: 0; /* Left side sidebar for LTR layout */
             height: 100%;
             z-index: 100;
         }
         
         .main-content {
-            margin-right: 250px;
+            margin-left: 250px; /* Left margin for content in LTR layout */
+            margin-right: 0;
         }
         
         @media (max-width: 768px) {
@@ -41,6 +45,7 @@
             }
             
             .main-content {
+                margin-left: 0;
                 margin-right: 0;
             }
         }
@@ -65,6 +70,42 @@
             transform: translateY(-5px);
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
         }
+        
+        /* Ensure dropdown menus open on the right side */
+        .dropdown-menu-end {
+            right: 0;
+            left: auto;
+        }
+        
+        /* Ensure all text elements have proper LTR alignment */
+        .text-start {
+            text-align: left !important;
+        }
+        
+        .text-end {
+            text-align: right !important;
+        }
+        
+        /* Fix form controls for LTR */
+        .form-group label {
+            text-align: left;
+        }
+        
+        /* Fix button icons for LTR */
+        .me-2 {
+            margin-right: 0.5rem !important;
+            margin-left: 0 !important;
+        }
+        
+        .ms-auto {
+            margin-left: auto !important;
+            margin-right: 0 !important;
+        }
+        
+        .ms-2 {
+            margin-left: 0.5rem !important;
+            margin-right: 0 !important;
+        }
     </style>
     
     @stack('styles')
@@ -72,7 +113,7 @@
 <body>
     <div class="d-flex">
       
-      
+        @include('admin.partials.sidebar')
      
         <div class="main-content flex-grow-1 p-4">
           
@@ -88,7 +129,7 @@
                             </button>
                             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
                                 <li><a class="dropdown-item" href="#"><i class="fas fa-user me-2"></i> Profile</a></li>
-                                <li><a class="dropdown-item" href="#"><i class="fas fa-cog me-2"></i> setting</a></li>
+                                <li><a class="dropdown-item" href="#"><i class="fas fa-cog me-2"></i> Settings</a></li>
                                 <li><hr class="dropdown-divider"></li>
                                 <li>
                                     <form action="{{ route('logout') }}" method="POST">
@@ -104,7 +145,7 @@
                 </div>
             </nav>
             
-            <!-- محتوى الصفحة -->
+            <!-- Page Content -->
             @if(session('success'))
             <div class="alert alert-success alert-dismissible fade show" role="alert">
                 {{ session('success') }}
@@ -118,6 +159,8 @@
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
             @endif
+            
+      
             
             @yield('content')
         </div>

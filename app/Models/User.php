@@ -5,10 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable;
+    use HasFactory, Notifiable, SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -20,8 +21,9 @@ class User extends Authenticatable
         'last_name',
         'email',
         'password',
-        'phone_number',
+        'phone',
         'profile_image',
+        'role',
     ];
 
     /**
@@ -44,19 +46,44 @@ class User extends Authenticatable
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'created_at' => 'datetime',
+            'updated_at' => 'datetime',
+            'deleted_at' => 'datetime',
         ];
+    }
+
+    public function getFormattedCreatedAtAttribute()
+    {
+        return $this->created_at ? $this->created_at->format('Y-m-d') : 'Not Available';
+    }
+    
+
+    /**
+     * Check if the user is an admin
+     */
+    public function isAdmin()
+    {
+        return $this->role === 'admin' || $this->role === 'superadmin';
+    }
+
+    /**
+     * Get the user's full name
+     */
+    public function getFullNameAttribute()
+    {
+        return "{$this->first_name} {$this->last_name}";
     }
 
     //  Relationships
 
     public function organizedActivities()
     {
-        return $this->hasMany(Activity::class, 'organized_by');
+        return $this->hasMany(Activity::class, 'created_by');
     }
 
     public function joinedActivities()
     {
-        return $this->belongsToMany(Activity::class, 'activity_user');
+        return $this->belongsToMany(Activity::class, 'activity_user')->withTimestamps();
     }
 
     public function donations()
