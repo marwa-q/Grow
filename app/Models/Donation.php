@@ -13,7 +13,8 @@ class Donation extends Model
         'user_id',
         'activity_id',
         'amount',
-        'donation_date',
+        'donated_at',
+        
     ];
 
     //  Relationships
