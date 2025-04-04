@@ -16,13 +16,31 @@ class PostComment extends Model
         'content',
     ];
 
-    //  Relationships
+    protected $casts = [
+        'created_at' => 'datetime',
+        'updated_at' => 'datetime',
+        'deleted_at' => 'datetime',
+    ];
 
+    /**
+     * Get time ago in human readable format
+     */
+    public function getTimeAgoAttribute()
+    {
+        return $this->created_at ? $this->created_at->diffForHumans() : 'N/A';
+    }
+
+    /**
+     * Get the post that owns the comment
+     */
     public function post()
     {
         return $this->belongsTo(Post::class);
     }
 
+    /**
+     * Get the user that owns the comment
+     */
     public function user()
     {
         return $this->belongsTo(User::class);

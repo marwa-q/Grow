@@ -43,7 +43,6 @@
                     <a class="nav-link text-dark" href="{{ route('contact.show') }}">Contact Us</a>
                 </li>
             </ul>
-
             @auth
                 <!-- Dropdown Menu for Logged-in User -->
                 <ul class="navbar-nav ms-auto">
