@@ -6,6 +6,7 @@ use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Storage;
 
 class PostController extends Controller
 {
@@ -48,34 +49,49 @@ class PostController extends Controller
     // Show a single post
     public function show(Post $post)
     {
-        // return view('posts.show', compact('post'));
+        //
     }
 
     // Show form to edit a post
     public function edit(Post $post)
     {
+        // Authorization check - only allow post owner to edit
+        if (Auth::id() !== $post->user_id) {
+            abort(403, 'Unauthorized action.');
+        }
+        
         return view('posts.edit', compact('post'));
     }
-
-    // Update an existing post
+    
     public function update(Request $request, Post $post)
     {
-        $request->validate([
-            'title' => 'required|string|max:255',
-            'content' => 'required|string',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-        ]);
-
-        $post->title = $request->title;
-        $post->content = $request->content;
+        // Authorization check - only allow post owner to update
+        if (Auth::id() !== $post->user_id) {
+            abort(403, 'Unauthorized action.');
+        }
         
+        // Validate the request
+        $validated = $request->validate([
+            'title' => 'nullable|string|max:255',
+            'content' => 'required|string',
+            'image' => 'nullable|image|max:2048', // Optional: Allow updating the image
+        ]);
+        
+        // Update the post
+        $post->title = $validated['title'];
+        $post->content = $validated['content'];
+        
+        // Handle image upload if a new one is provided
         if ($request->hasFile('image')) {
-            $post->image = $request->file('image')->store('posts', 'public');
+            
+            // Store the new image
+            $imagePath = $request->file('image')->store('posts', 'public');
+            $post->image = $imagePath;
         }
         
         $post->save();
-
-        return Redirect::route('posts.show', $post);
+        
+        return redirect()->route('posts')->with('success', 'Post updated successfully!');
     }
 
     // Delete a post

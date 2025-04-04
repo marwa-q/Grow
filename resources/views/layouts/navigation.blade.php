@@ -1,6 +1,3 @@
-<!-- Add Bootstrap 5 CDN if not already included -->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-
 <style>
     .brand-color {
         color: #F4A261;
@@ -37,28 +34,34 @@
                     <a class="nav-link text-dark" href="#">Activities</a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link text-dark" href="{{ route('posts.index') }}">Posts</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link text-dark" href="#">About Us</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-dark" href="#">Contact Us</a>
+                    <a class="nav-link text-dark" href="{{ route('contact.show') }}">Contact Us</a>
                 </li>
             </ul>
 
             @auth
-                <div class="dropdown">
-                    <button class="btn btn-light dropdown-toggle text-dark" type="button" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                        Welcome, {{ Auth::user()->first_name }}!
-                    </button>
-                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
-                        <li><a class="dropdown-item" href="{{ route('profile.edit') }}">Profile</a></li>
-                        <li>
-                            <form method="POST" action="{{ route('logout') }}">
-                                @csrf
-                                <button class="dropdown-item" type="submit">Log Out</button>
-                            </form>
-                        </li>
-                    </ul>
-                </div>
+                <!-- Dropdown Menu for Logged-in User -->
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle text-dark" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Welcome, {{ Auth::user()->first_name }}!
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                            <li><a class="dropdown-item" href="{{ route('profile.edit') }}">Profile</a></li>
+                            <li>
+                                <form method="POST" action="{{ route('logout') }}">
+                                    @csrf
+                                    <button class="dropdown-item" type="submit">Log Out</button>
+                                </form>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
             @else
                 <a href="{{ route('login') }}" class="btn btn-primary-custom ms-3">Log In</a>
             @endauth

@@ -1,5 +1,6 @@
 @extends('layouts.app')
 @section('title' , 'Grow')
+
 @section('content')
 <div class="container mt-5">
     <!-- Add Post Button -->

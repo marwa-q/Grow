@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\PostLikeController;
 use App\Http\Controllers\PostCommentController;
+use App\Http\Controllers\ContactController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -28,6 +29,7 @@ Route::middleware('auth')->group(function () {
 
 require __DIR__ . '/auth.php';
 
+
 // Posts routes
 Route::get('/posts', [PostController::class, 'index'])->name('posts.index');
 Route::get('/posts/create', [PostController::class, 'create'])->name('posts.create');
@@ -45,3 +47,7 @@ Route::post('/posts/{post}/like', [PostLikeController::class, 'toggleLike'])->mi
 
 Route::post('/posts/{post}/comments', [PostCommentController::class, 'store'])->name('posts.comment');
 Route::get('/posts/{post}/comments', [PostCommentController::class, 'fetchComments'])->name('posts.comments');
+
+// Contact routes
+
+Route::get('/contact', [ContactController::class, 'show'])->name('contact.show');
