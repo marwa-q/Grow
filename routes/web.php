@@ -3,8 +3,7 @@ use App\Http\Controllers\ActivityController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\UserController;
-use App\Http\Controllers\Admin\ActivityController;
-use App\Http\Controllers\Admin\PostController;
+
 use App\Http\Controllers\Admin\CommentController;
 use App\Http\Controllers\Admin\DonationController;
 use App\Models\User;
@@ -15,10 +14,9 @@ use App\Http\Controllers\PostLikeController;
 use App\Http\Controllers\PostCommentController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\AboutController;
+use App\http\controllers\LandingPageController;
 
-Route::get('/', function () {
-    return view('welcome');
-})->name('home');
+Route::get('/', [LandingPageController::class, 'index'])->name('home');
 
 Route::get('/dashboard', function () {
 
@@ -78,6 +76,7 @@ require __DIR__ . '/auth.php';
 
 
 // Posts routes
+
 Route::get('/posts', [PostController::class, 'index'])->name('posts.index');
 Route::get('/posts/create', [PostController::class, 'create'])->name('posts.create');
 Route::post('/posts', [PostController::class, 'store'])->name('posts.store');
@@ -97,4 +96,4 @@ Route::get('/posts/{post}/comments', [PostCommentController::class, 'fetchCommen
 
 // Contact routes
 
-Route::get('/contact', [ContactController::class, 'show'])->name('contact.show');
+Route::get('/contact', [ContactController::class, 'show'])->name('contact');
