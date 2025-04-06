@@ -157,7 +157,7 @@ class AdminActivityController extends Controller
 
         $activity->delete();
 
-        return redirect()->route('activities.index')
+        return redirect()->route('dashboard.activities.index')
             ->with('success', 'Activity deleted successfully');
     }
 }

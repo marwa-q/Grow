@@ -46,6 +46,8 @@ Route::prefix('dashboard')->middleware(['auth', 'verified'])->group(function () 
     Route::get('activities', [AdminActivityController::class, 'index'])->name('dashboard.activities.index');
     Route::get('activities/create', [AdminActivityController::class, 'create'])->name('dashboard.activities.create');
     Route::get('activities/{activity}/edit', [AdminActivityController::class, 'edit'])->name('dashboard.activities.edit');
+    Route::put('activities/{activity}', [AdminActivityController::class, 'update'])->name('activities.update');
+    Route::post('activities', [AdminActivityController::class, 'store'])->name('activities.store');
     Route::get('activities/{activity}', [AdminActivityController::class, 'show'])->name('dashboard.activities.show');
     Route::delete('activities/{activity}', [AdminActivityController::class, 'destroy'])->name('dashboard.activities.destroy');
 
@@ -76,6 +78,8 @@ Route::post('/donate', [ActivityController::class, 'donate'])->name('donate')->m
 Route::get('/activities/{categoryId?}', [ActivityController::class, 'index'])->name('activities.index');
 Route::post('/join-activity/{activityId}', [ActivityController::class, 'joinActivity'])->name('join.activity')->middleware('auth');
 Route::post('/activities/{activityId}/leave', [ActivityController::class, 'leaveActivity'])->name('leave.activity')->middleware('auth');
+Route::get('/activities/{activityId}', [ActivityController::class, 'show'])->name('activities.show');
+
 Route::get('/about', [AboutController::class, 'index'])->name('about');
 Route::get('/volunteers', [AboutController::class, 'getVolunteers'])->name('volunteers.get');
 
