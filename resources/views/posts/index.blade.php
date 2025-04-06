@@ -2,12 +2,20 @@
 @section('title' , 'Grow')
 
 @section('content')
+<style>
+    .btn-primary {
+    background-color: orange !important;
+    border: none;
+}
+</style>
 <div class="container mt-5">
     <!-- Add Post Button -->
     @auth
-        <button class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#addPostModal">
+    <div class="text-center">
+        <button style="margin: 0 auto;" class="btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#addPostModal">
             + Add Post
         </button>
+    </div>
     @endauth
 
     <!-- Posts Section -->
@@ -15,10 +23,7 @@
         @include('posts.partials.post-list', ['posts' => $posts])
     </div>
 
-    <!-- Load More Button -->
-    <div class="text-center mt-3">
-        <button id="load-more-btn" class="btn btn-secondary">Load More</button>
-    </div>
+
 </div>
 
 <!-- Add Post Modal (For Authenticated Users) -->

@@ -116,3 +116,8 @@
     </div>
 </div>
 @endforeach
+
+    <!-- Load More Button -->
+    <div class="text-center">
+        <button id="load-more-btn" class="btn btn-primary btn-lg mt-3 mb-3">Load More</button>
+    </div>

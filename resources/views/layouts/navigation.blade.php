@@ -21,26 +21,26 @@
 
 <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom shadow-sm sticky-top">
     <div class="container">
-        <a class="navbar-brand fw-bold brand-color" href="#">Grow</a>
+        <a class="navbar-brand fw-bold brand-color" href="{{ route('home') }}">Grow</a>
 
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarGrow" aria-controls="navbarGrow" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
 
         <div class="collapse navbar-collapse" id="navbarGrow">
-            <!-- Centered nav links -->
+            <!-- nav links -->
             <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link text-dark" href="#">Activities</a>
+                    <a class="nav-link text-dark" href="{{ route('activities.index') }}">Activities</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link text-dark" href="{{ route('posts.index') }}">Posts</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-dark" href="#">About Us</a>
+                    <a class="nav-link text-dark" href="{{ route('about') }}">About Us</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-dark" href="{{ route('contact.show') }}">Contact Us</a>
+                    <a class="nav-link text-dark" href="{{ route('contact') }}">Contact Us</a>
                 </li>
             </ul>
             @auth

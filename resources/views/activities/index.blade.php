@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>activitie</title>
+    <title>Activities</title>
 
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -24,6 +24,7 @@
 </head>
 
 <body>
+    @include('layouts.navigation')
     <div class="page-header">
         <h1 class="page-title">Explore our activities</h1>
         <p>Join a variety of activities and help make a positive difference</p>

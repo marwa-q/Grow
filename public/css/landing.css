@@ -1,0 +1,25 @@
+.btn-primary {
+    background-color: orange !important;
+    border: none;
+}
+
+.hero-section {
+    height: 80vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.hero-content {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+}
+
+.hero-image {
+    width: 500px;
+}
+
+.heading {
+    font-size: 2rem;
+}

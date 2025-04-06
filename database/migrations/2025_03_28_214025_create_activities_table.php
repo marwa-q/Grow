@@ -20,8 +20,6 @@ return new class extends Migration
             $table->string('location')->nullable();
             $table->dateTime('date');
             $table->enum('status', ['upcoming', 'done', 'cancelled']);
-            $table->foreignId('category_id')->constrained()->onDelete('cascade');
-            $table->foreignId('created_by')->constrained('users')->onDelete('cascade');
             $table->integer('max_participants')->nullable();
             $table->decimal('donation_goal', 10, 2)->nullable();
             $table->timestamps();
