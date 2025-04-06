@@ -6,7 +6,7 @@
 }
 
 body {
-    background-color: #7fc6ee;
+    background-color: #e2f1c1;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -25,7 +25,7 @@ body {
 }
 
 .login-image {
-    background-color: #5c9dcc;
+    background-color: linear-gradient(to right, #8360c3, #2ebf91);
     width: 50%;
     position: relative;
     color: white;
@@ -64,7 +64,7 @@ body {
 }
 
 .login-form-header h2 {
-    color: #1a73e8;
+    color: #2ebf91;
     display: flex;
     align-items: center;
     font-size: 1.5rem;
@@ -110,7 +110,7 @@ body {
 }
 
 .form-group input:focus {
-    border-color: #1a73e8;
+    border-color: #2ebf91;
 }
 
 .form-group input::placeholder {
@@ -135,7 +135,7 @@ body {
 }
 
 .forgot-password {
-    color: #1a73e8;
+    color: #2ebf91;
     text-decoration: none;
 }
 
@@ -144,7 +144,7 @@ body {
 }
 
 .sign-in-button {
-    background-color: #1a73e8;
+    background-color:  #2ebf91;
     color: white;
     border: none;
     border-radius: 5px;
@@ -158,7 +158,7 @@ body {
 }
 
 .sign-in-button:hover {
-    background-color: #1967d2;
+    background-color: #5ad0aa;
 }
 
 .or-divider {
@@ -206,7 +206,7 @@ body {
 }
 
 .signup-link a {
-    color: #1a73e8;
+    color: #2ebf91;
     text-decoration: none;
     font-weight: 500;
 }

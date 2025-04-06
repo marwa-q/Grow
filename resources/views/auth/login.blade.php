@@ -16,15 +16,11 @@
             <div class="illustration">
                 <!-- You can add your actual illustration here -->
             </div>
-            <div class="illustration-text">
-                <h1>CHARITY Connect</h1>
-                <p>Making a difference, together.</p>
-            </div>
         </div>
 
         <div class="login-form">
             <div class="login-form-header">
-                <h2><span class="heart-icon">❤️</span> CHARITY Connect</h2>
+                <h2>Grow</h2>
                 <h3>Welcome Back!</h3>
                 <p>Sign in to continue your charitable journey</p>
             </div>
