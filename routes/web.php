@@ -3,7 +3,8 @@ use App\Http\Controllers\ActivityController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\UserController;
-
+use App\Http\Controllers\Admin\AdminActivityController;
+use App\Http\Controllers\Admin\AdminPostsController;
 use App\Http\Controllers\Admin\CommentController;
 use App\Http\Controllers\Admin\DonationController;
 use App\Models\User;
@@ -21,7 +22,7 @@ Route::get('/', [LandingPageController::class, 'index'])->name('home');
 Route::get('/dashboard', function () {
 
     if (Auth::user() && (Auth::user()->role === 'admin' || Auth::user()->role === 'superadmin')) {
-       
+
     }
     return view('dashboard');
 })->middleware(['auth', 'verified'])
@@ -40,26 +41,36 @@ Route::middleware('auth')->group(function () {
 Route::prefix('dashboard')->middleware(['auth', 'verified'])->group(function () {
 
     Route::get('/', [DashboardController::class, 'index'])->name('admin.dashboard');
-    
+
     Route::resource('users', UserController::class);
 
-    Route::resource('activities', ActivityController::class);
+    Route::get('activities', [AdminActivityController::class, 'index'])->name('dashboard.activities.index');
+    Route::get('activities/create', [AdminActivityController::class, 'create'])->name('dashboard.activities.create');
+    Route::get('activities/{activity}/edit', [AdminActivityController::class, 'edit'])->name('dashboard.activities.edit');
+    Route::put('activities/{activity}', [AdminActivityController::class, 'update'])->name('activities.update');
+    Route::post('activities', [AdminActivityController::class, 'store'])->name('activities.store');
+    Route::get('activities/{activity}', [AdminActivityController::class, 'show'])->name('dashboard.activities.show');
+    Route::delete('activities/{activity}', [AdminActivityController::class, 'destroy'])->name('dashboard.activities.destroy');
 
-    // Modified posts routes to only allow viewing and deleting
-    Route::resource('posts', PostController::class)->only(['index', 'show', 'destroy']);
-    Route::get('posts/{post}/comments', [PostController::class, 'comments'])->name('posts.comments');
-    Route::delete('comments/{id}', [PostController::class, 'deleteComment'])->name('posts.comments.delete');
-    Route::get('posts/create', [PostController::class, 'create'])->name('posts.create');
+    // Admin Posts Routes
+    Route::get('posts', [AdminPostsController::class, 'index'])->name('dashboard.posts.index');
+    Route::get('posts/create', [AdminPostsController::class, 'create'])->name('dashboard.posts.create');
+    Route::get('posts/{post}/edit', [AdminPostsController::class, 'edit'])->name('dashboard.posts.edit');
+    Route::get('posts/{post}', [AdminPostsController::class, 'show'])->name('dashboard.posts.show');
+    Route::delete('posts/{post}', [AdminPostsController::class, 'destroy'])->name('dashboard.posts.destroy');
+    Route::post('posts', [AdminPostsController::class, 'store'])->name('dashboard.posts.store');
+    Route::put('posts/{post}', [AdminPostsController::class, 'update'])->name('dashboard.posts.update');
+
 
 
     // Comments routes with only view and delete functionality
     Route::resource('comments', CommentController::class)->only(['index', 'show', 'destroy']);
- 
+
     Route::resource('donations', DonationController::class)->only(['index', 'show']);
     Route::get('donation-statistics', [DonationController::class, 'statistics'])->name('donations.statistics');
 
 })
-->can('access', User::class);
+    ->can('access', User::class);
 require __DIR__ . '/auth.php';
 
 
@@ -68,6 +79,8 @@ Route::post('/donate', [ActivityController::class, 'donate'])->name('donate')->m
 Route::get('/activities/{categoryId?}', [ActivityController::class, 'index'])->name('activities.index');
 Route::post('/join-activity/{activityId}', [ActivityController::class, 'joinActivity'])->name('join.activity')->middleware('auth');
 Route::post('/activities/{activityId}/leave', [ActivityController::class, 'leaveActivity'])->name('leave.activity')->middleware('auth');
+Route::get('/activities/{activityId}', [ActivityController::class, 'show'])->name('activities.show');
+
 Route::get('/about', [AboutController::class, 'index'])->name('about');
 Route::get('/volunteers', [AboutController::class, 'getVolunteers'])->name('volunteers.get');
 

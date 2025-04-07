@@ -17,13 +17,13 @@
             </li>
             
             <li class="nav-item">
-                <a class="nav-link text-white d-flex align-items-center" href="{{ route('activities.index') }}">
+                <a class="nav-link text-white d-flex align-items-center" href="{{ route('dashboard.activities.index') }}">
                     <i class="fas fa-calendar-alt me-2"></i>Activities Management
                 </a>
             </li>
             
             <li class="nav-item">
-                <a class="nav-link text-white d-flex align-items-center" href="{{ route('posts.index') }}">
+                <a class="nav-link text-white d-flex align-items-center" href="{{ route('dashboard.posts.index') }}">
                     <i class="fas fa-file-alt me-2"></i> post Management
                 </a>
             </li>

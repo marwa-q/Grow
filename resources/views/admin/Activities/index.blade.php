@@ -8,7 +8,7 @@
 <div class="card shadow-sm">
     <div class="card-header bg-white d-flex justify-content-between align-items-center">
         <h5 class="mb-0">Activities List</h5>
-        <a href="{{ route('activities.create') }}" class="btn btn-primary">
+        <a href="{{ route('dashboard.activities.create') }}" class="btn btn-primary">
             <i class="fas fa-plus-circle me-1"></i> Add New Activity
         </a>
     </div>
@@ -75,10 +75,10 @@
                         </td>
                         <td>
                             <div class="btn-group" role="group">
-                                <a href="{{ route('activities.show', $activity) }}" class="btn btn-sm btn-info text-white">
+                                <a href="{{ route('dashboard.activities.show', $activity->id) }}" class="btn btn-sm btn-info text-white">
                                     <i class="fas fa-eye"></i>
                                 </a>
-                                <a href="{{ route('activities.edit', $activity) }}" class="btn btn-sm btn-warning text-white">
+                                <a href="{{ route('dashboard.activities.edit', $activity) }}" class="btn btn-sm btn-warning text-white">
                                     <i class="fas fa-edit"></i>
                                 </a>
                                 <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#deleteActivityModal{{ $activity->id }}">
@@ -99,7 +99,7 @@
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                                            <form action="{{ route('activities.destroy', $activity) }}" method="POST">
+                                            <form action="{{ route('dashboard.activities.destroy', $activity) }}" method="POST">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" class="btn btn-danger">Delete</button>
