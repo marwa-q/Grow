@@ -173,14 +173,11 @@
     </style>
 </head>
 <body>
-    <!-- Navigation Bar -->
- @include('layouts.navigation');
 
     <!-- Profile Header -->
     <header class="profile-header">
         <div class="container text-center">
-            <img src="{{ $user->profile_image ?? 'https://via.placeholder.com/150' }}" alt="User Profile Image" class="profile-avatar mb-3">
-            <h1>{{ $user->name }}</h1>
+
             <p class="lead">{{ $user->bio ?? 'Active volunteer serving the community' }}</p>
             <div class="d-flex justify-content-center gap-2 mt-3">
                 <a href="{{ route('profile.edit') }}" class="btn btn-light px-4"><i class="fas fa-edit me-2"></i> Edit Profile</a>
@@ -350,7 +347,53 @@
     </div>
 
     <!-- Footer -->
-   @include('layouts.footer');
+    <footer>
+        <div class="container">
+            <div class="row gy-4">
+                <div class="col-md-4">
+                    <h5 class="mb-3">Charity Volunteering Project</h5>
+                    <p>A platform that brings together volunteers and charitable organizations to make a positive impact in the community through organized volunteer work.</p>
+                    <div class="social-icons mt-3">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <h5 class="mb-3">Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="#" class="text-white text-decoration-none">About the Platform</a></li>
+                        <li class="mb-2"><a href="#" class="text-white text-decoration-none">Volunteer Opportunities</a></li>
+                        <li class="mb-2"><a href="#" class="text-white text-decoration-none">Partner Organizations</a></li>
+                        <li class="mb-2"><a href="#" class="text-white text-decoration-none">Blog</a></li>
+                        <li class="mb-2"><a href="#" class="text-white text-decoration-none">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <h5 class="mb-3">Subscribe to Newsletter</h5>
+                    <p>Subscribe to get the latest news and volunteer opportunities</p>
+                    <form class="mt-3">
+                        <div class="input-group mb-3">
+                            <input type="email" class="form-control" placeholder="Email Address" required>
+                            <button class="btn btn-custom" type="submit">Subscribe</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <hr class="mt-4 mb-3" style="border-color: rgba(255,255,255,0.2);">
+            <div class="row">
+                <div class="col-md-6">
+                    <p class="mb-0">&copy; {{ date('Y') }} Charity Volunteering Project. All rights reserved.</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <a href="#" class="text-white text-decoration-none mx-2">Privacy Policy</a>
+                    <a href="#" class="text-white text-decoration-none mx-2">Terms & Conditions</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

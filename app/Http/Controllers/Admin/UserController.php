@@ -62,7 +62,7 @@ class UserController extends Controller
         ]);
 
         return redirect()->route('users.index')
-            ->with('success', 'تم إنشاء المستخدم بنجاح');
+            ->with('success', 'User created successfully');
     }
 
     /**
@@ -129,7 +129,7 @@ class UserController extends Controller
         $user->update($userData);
 
         return redirect()->route('users.index')
-            ->with('success', 'تم تحديث المستخدم بنجاح');
+            ->with('success', 'User updated successfully');
     }
 
     /**
@@ -140,7 +140,7 @@ class UserController extends Controller
         // منع حذف المستخدم نفسه
         if ($user->id === optional(Auth::user())->id) {
             return redirect()->route('users.index')
-                ->with('error', 'لا يمكنك حذف حسابك الخاص');
+                ->with('error', 'You cannot delete your own account.');
         }
 
         // حذف الصورة الشخصية إذا كانت موجودة
@@ -151,6 +151,6 @@ class UserController extends Controller
         $user->delete();
 
         return redirect()->route('users.index')
-            ->with('success', 'تم حذف المستخدم بنجاح');
+            ->with('success', 'User deleted successfully');
     }
 }
