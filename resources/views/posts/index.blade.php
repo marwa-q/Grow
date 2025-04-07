@@ -2,12 +2,14 @@
 @section('title' , 'Grow')
 
 @section('content')
+
 <style>
     .btn-primary {
-    background-color: orange !important;
+    background-color: #2ebf91 !important;
     border: none;
 }
 </style>
+
 <div class="container mt-5">
     <!-- Add Post Button -->
     @auth
@@ -75,5 +77,6 @@
         </div>
     </div>
 @endguest
+@include('layouts.footer')
 
 @endsection

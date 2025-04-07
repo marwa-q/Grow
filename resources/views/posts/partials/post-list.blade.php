@@ -44,6 +44,7 @@
         
         <!-- Post Image (if exists) -->
         @if($post->image)
+        
             <div class="post-image mb-3">
                 <img  style="width: 700px;" src="{{ asset('storage/' . $post->image) }}" alt="Post Image" class="img-fluid rounded">
             </div>
@@ -67,7 +68,7 @@
     
     <!-- Action Buttons -->
     <div class="card-footer bg-white border-0 d-flex justify-content-between p-2">
-        <form action="{{ route('posts.like', $post->id) }}" method="POST" class="like-form flex-fill">
+        <form action="{{ Auth::check() ? route('posts.like', $post->id) : route('login') }}" method="POST" class="like-form flex-fill">
             @csrf
             @if($post->likes->contains('user_id', auth()->id()))
                 @method('DELETE')
@@ -97,7 +98,7 @@
         @auth
             <div class="d-flex">
                 <div class="avatar me-2">
-                    <img src="{{ auth()->user()->profile_photo ?? asset('images/avatar.jpg') }}" class="rounded-circle" width="32" height="32" alt="Your Avatar">
+                    <img src="{{ auth()->user()->profile_photo ?? asset('images/avatar.jpg') }}" class="rounded-circle" width="32" height="32" alt="Avatar">
                 </div>
                 <div class="flex-grow-1">
                     <div class="input-group">
@@ -119,5 +120,5 @@
 
     <!-- Load More Button -->
     <div class="text-center">
-        <button id="load-more-btn" class="btn btn-primary btn-lg mt-3 mb-3">Load More</button>
+        <a href="{{ route('posts.index')}}" id="load-more-btn" class="btn btn-primary btn-lg mt-3 mb-3">Load More</a>
     </div>

@@ -16,12 +16,10 @@
             <div class="illustration">
                 <!-- This would be replaced with the actual illustration -->
             </div>
-            <h1>CHARITY Connect</h1>
-            <p>Making a difference, together.</p>
         </div>
         <div class="register-form">
             <div class="register-form-header">
-                <h2><span class="heart-icon">❤️</span> CHARITY Connect</h2>
+                <h2>Grow</h2>
                 <p>Join our community and start making an impact</p>
             </div>
             <form method="POST" action="{{ route('register') }}">

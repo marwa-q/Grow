@@ -1,21 +1,25 @@
 <style>
     .brand-color {
-        color: #F4A261;
+        color: #2ebf91;
+    }
+
+    .brand-color:hover {
+        color: #2ebf91;
     }
 
     .btn-primary-custom {
-        background-color: #F4A261;
+        background-color: #2ebf91;
         border: none;
         color: white;
     }
 
     .btn-primary-custom:hover {
-        background-color: #e28f50;
+        background-color: #2ebf91;
         color: white;
     }
 
     .nav-link:hover {
-        color: #F4A261 !important;
+        color: #2ebf91 !important;
     }
 </style>
 
