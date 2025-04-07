@@ -117,14 +117,14 @@
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link text-white d-flex align-items-center" href="{{ route('activities.index') }}">
+                        <a class="nav-link text-white d-flex align-items-center" href="{{ route('dashboard.activities.index') }}">
                             <i class="fas fa-calendar-alt me-2"></i> Activities Management
                         </a>
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link text-white d-flex align-items-center" href="{{ route('posts.index') }}">
-                            <i class="fas fa-file-alt me-2"></i> Publications Management
+                        <a class="nav-link text-white d-flex align-items-center" href="{{ route('dashboard.posts.index') }}">
+                            <i class="fas fa-file-alt me-2"></i> Posts Management
                         </a>
                     </li>
 
@@ -419,7 +419,7 @@
                                     </a>
                                 </div>
                                 <div class="col-md-6">
-                                    <a href="{{ route('activities.create') }}" class="text-decoration-none">
+                                    <a href="{{ route('dashboard.activities.create') }}" class="text-decoration-none">
                                         <div class="card bg-success text-white">
                                             <div class="card-body text-center py-4">
                                                 <i class="fas fa-calendar-plus fa-2x mb-3"></i>
