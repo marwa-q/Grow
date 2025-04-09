@@ -38,3 +38,15 @@ body {
 .heading {
     font-size: 2rem;
 }
+
+@media only screen and (max-width: 767px) {
+
+    .hero-image {
+        display: none;
+    }
+
+    .hero-content {
+        justify-content: center;
+        align-items: center;
+    }
+}

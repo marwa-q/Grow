@@ -1,12 +1,12 @@
 <!-- resources/views/admin/donations/edit.blade.php -->
-@extends('layouts.admin')
+@extends('admin.layout')
 
 @section('title', 'Edit Donation')
 
 @section('page-title', 'Edit Donation')
 
 @section('content')
-<div class="card shadow-sm">
+<div class="container my-5 card shadow-sm">
     <div class="card-header bg-white">
         <h5 class="mb-0">Edit Donation Information</h5>
     </div>

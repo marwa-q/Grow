@@ -1,11 +1,11 @@
-@extends('layouts.admin')
+@extends('admin.layout')
 
 @section('title', 'Comments Management')
 
 @section('page-title', 'Comments Management')
 
 @section('content')
-<div class="card shadow-sm">
+<div class="container my-5 card shadow-sm">
     <div class="card-header bg-white">
         <h5 class="mb-0">Comments List</h5>
     </div>
@@ -36,7 +36,7 @@
                                 <span class="text-muted">Post not found</span>
                             @endif
                         </td>
-                        <td>{{ Str::limit($comment->content, 50) }}</td>
+                        <td>{{ Str::limit($comment->comment, 50) }}</td>
                         <td>{{ $comment->created_at ? $comment->created_at->format('Y-m-d H:i') : 'N/A' }}</td>
                         <td>
                             <div class="btn-group" role="group">

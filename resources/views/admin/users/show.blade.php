@@ -1,12 +1,12 @@
 <!-- resources/views/admin/users/show.blade.php -->
-@extends('layouts.admin')
+@extends('admin.layout')
 
 @section('title', 'User Details')
 
 @section('page-title', 'User Details')
 
 @section('content')
-<div class="card shadow-sm">
+<div class="container card shadow-sm">
     <div class="card-header bg-white d-flex justify-content-between align-items-center">
         <h5 class="mb-0">User Information: {{ $user->full_name }}</h5>
         <a href="{{ route('users.index') }}" class="btn btn-secondary">

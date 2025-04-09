@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('admin.layout')
 
 @section('title', 'Donation Statistics')
 
@@ -59,7 +59,7 @@
 @endsection
 
 @section('content')
-<!-- Back button -->
+<div class="container my-5">
 <div class="mb-4">
     <a href="{{ route('donations.index') }}" class="btn btn-outline-secondary back-button">
         <i class="fas fa-arrow-left me-2"></i> Back to Donations
@@ -183,5 +183,8 @@
         @endif
     </div>
 </div>
+</div>
+<!-- Back button -->
+
 
 @endsection
