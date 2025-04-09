@@ -1,11 +1,11 @@
-@extends('layouts.admin')
+@extends('admin.layout')
 
 @section('title', 'Create New Post')
 
 @section('page-title', 'Create New Post')
 
 @section('content')
-<div class="card shadow-sm">
+<div class="container my-5 card shadow-sm">
     <div class="card-header bg-white">
         <h5 class="mb-0">New Post Information</h5>
     </div>

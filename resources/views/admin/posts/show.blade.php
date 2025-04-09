@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('admin.layout')
 
 @section('title', 'Post Details')
 
@@ -68,7 +68,7 @@
 @endsection
 
 @section('content')
-<div class="card shadow">
+<div class="container my-5 card shadow">
     <div class="card-header bg-white d-flex justify-content-between align-items-center">
         <h5 class="mb-0">Post Information</h5>
         <div>

@@ -1,11 +1,11 @@
-@extends('layouts.admin')
+@extends('admin.layout')
 
 @section('title', 'Activities Management')
 
 @section('page-title', 'Activities Management')
 
 @section('content')
-<div class="card shadow-sm">
+<div class="container my-5 card shadow-sm">
     <div class="card-header bg-white d-flex justify-content-between align-items-center">
         <h5 class="mb-0">Activities List</h5>
         <a href="{{ route('dashboard.activities.create') }}" class="btn btn-primary">
