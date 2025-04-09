@@ -1,18 +1,18 @@
-@extends('layouts.admin')
+@extends('admin.layout')
 
 @section('title', 'Activity Details')
 
 @section('page-title', 'Activity Details')
 
 @section('content')
-<div class="card shadow-sm">
+<div class="container my-5 card shadow-sm">
     <div class="card-header bg-white d-flex justify-content-between align-items-center">
         <h5 class="mb-0">Activity Information</h5>
         <div>
-            <a href="{{ route('activities.edit', $activity) }}" class="btn btn-warning">
+            <a href="{{ route('dashboard.activities.edit', $activity) }}" class="btn btn-warning">
                 <i class="fas fa-edit me-1"></i> Edit
             </a>
-            <a href="{{ route('activities.index') }}" class="btn btn-secondary ms-2">
+            <a href="{{ route('dashboard.activities.index') }}" class="btn btn-secondary ms-2">
                 <i class="fas fa-arrow-left me-1"></i> Back
             </a>
         </div>
@@ -27,7 +27,7 @@
                     </tr>
                     <tr>
                         <th>Category</th>
-                        <td>{{ $activity->category->name }}</td>
+                        <td>{{ $activity->category->name ?? 'No category assigned' }}</td>
                     </tr>
                     <tr>
                         <th>Type</th>
@@ -150,7 +150,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                <form action="{{ route('activities.destroy', $activity) }}" method="POST">
+                <form action="{{ route('dashboard.activities.destroy', $activity) }}" method="POST">
                     @csrf
                     @method('DELETE')
                     <button type="submit" class="btn btn-danger">Delete</button>

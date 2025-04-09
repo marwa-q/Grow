@@ -1,11 +1,11 @@
-@extends('layouts.admin')
+@extends('admin.layout')
 
 @section('title', 'Edit Activity')
 
 @section('page-title', 'Edit Activity')
 
 @section('content')
-<div class="card shadow-sm">
+<div class="container my-5 card shadow-sm">
     <div class="card-header bg-white">
         <h5 class="mb-0">Edit Activity: {{ $activity->title }}</h5>
     </div>

@@ -1,12 +1,12 @@
 <!-- resources/views/admin/users/edit.blade.php -->
-@extends('layouts.admin')
+@extends('admin.layout')
 
 @section('title', 'Edit User')
 
 @section('page-title', 'Edit User')
 
 @section('content')
-<div class="card shadow-sm">
+<div class="container my-5 card shadow-sm">
     <div class="card-header bg-white">
         <h5 class="mb-0">Edit User: {{ $user->full_name }}</h5>
     </div>

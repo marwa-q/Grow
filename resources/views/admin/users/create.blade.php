@@ -1,12 +1,12 @@
 <!-- resources/views/admin/users/create.blade.php -->
-@extends('layouts.admin')
+@extends('admin.layout')
 
 @section('title', 'Add New User')
 
 @section('page-title', 'Add New User')
 
 @section('content')
-<div class="card shadow-sm">
+<div class="container my-5 card shadow-sm">
     <div class="card-header bg-white">
         <h5 class="mb-0">New User Information</h5>
     </div>
