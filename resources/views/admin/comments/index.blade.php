@@ -36,7 +36,7 @@
                                 <span class="text-muted">Post not found</span>
                             @endif
                         </td>
-                        <td>{{ Str::limit($comment->content, 50) }}</td>
+                        <td>{{ Str::limit($comment->comment, 50) }}</td>
                         <td>{{ $comment->created_at ? $comment->created_at->format('Y-m-d H:i') : 'N/A' }}</td>
                         <td>
                             <div class="btn-group" role="group">

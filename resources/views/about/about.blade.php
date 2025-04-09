@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About Us | Charity Website</title>    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <title>About Us</title>    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('css/fotter.css') }}">
@@ -13,9 +13,10 @@
       
 </head>
 <body>
-    <!-- قسم البطل (Hero Section) -->
+    @include('layouts.navigation')
+    <!-- (Hero Section) -->
     
-    <div class="hero-section" style="background-image: url('img/222.jpg'); background-size: cover; background-repeat: no-repeat; background-position: center;" >
+    <div class="hero-section" style="background-color: #2ebf91; background-size: cover; background-repeat: no-repeat; background-position: center;" >
         <div class="container hero-content" >
         <h1 class="display-3 fw-bold mb-4">Together we make a difference</h1>
         <p class="lead mb-5">We work hard and with dedication to help those in need and spread goodness in our community</p>

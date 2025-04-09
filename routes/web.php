@@ -17,6 +17,7 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\AboutController;
 use App\http\controllers\LandingPageController;
 
+
 Route::get('/', [LandingPageController::class, 'index'])->name('home');
 
 Route::get('/dashboard', function () {
@@ -31,6 +32,7 @@ Route::get('/dashboard', function () {
 
 
 Route::middleware('auth')->group(function () {
+    
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
@@ -80,6 +82,10 @@ Route::post('/join-activity/{activityId}', [ActivityController::class, 'joinActi
 Route::post('/activities/{activityId}/leave', [ActivityController::class, 'leaveActivity'])->name('leave.activity')->middleware('auth');
 Route::get('/activities/{activityId}', [ActivityController::class, 'show'])->name('activities.show');
 
+
+Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
+
+
 Route::get('/about', [AboutController::class, 'index'])->name('about');
 Route::get('/volunteers', [AboutController::class, 'getVolunteers'])->name('volunteers.get');
 
@@ -110,3 +116,10 @@ Route::get('/posts/{post}/comments', [PostCommentController::class, 'fetchCommen
 // Contact routes
 
 Route::get('/contact', [ContactController::class, 'show'])->name('contact');
+
+Route::middleware(['auth'])->group(function () {
+    // Profile Routes
+    Route::get('/profile', [ProfileController::class, 'index'])->name('profile.index');
+    Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::put('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
+});

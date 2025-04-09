@@ -6,7 +6,7 @@
 }
 
 body {
-    background-color: #7fc6ee;
+    background-color: #e2f1c1;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -26,7 +26,7 @@ body {
 }
 
 .register-image {
-    background-color: #5c9dcc;
+    background-color: linear-gradient(to right, #8360c3, #2ebf91);
     width: 50%;
     position: relative;
     color: white;
@@ -65,7 +65,7 @@ body {
 }
 
 .register-form-header h2 {
-    color: #1a73e8;
+    color:  #8360c3;
     display: flex;
     align-items: center;
     font-size: 1.3rem;
@@ -73,7 +73,7 @@ body {
 }
 
 .register-form-header h2 .heart-icon {
-    color: #1a73e8;
+    color:   #2ebf91;
     margin-right: 10px;
     font-size: 1.2rem;
 }
@@ -110,9 +110,7 @@ body {
     transition: border 0.3s;
 }
 
-.form-group input:focus {
-    border-color: #1a73e8;
-}
+
 
 .form-group input::placeholder {
     color: #aaa;
@@ -141,7 +139,7 @@ body {
 }
 
 .terms-privacy a {
-    color: #1a73e8;
+    color: #2ebf91;
     text-decoration: none;
 }
 
@@ -150,7 +148,7 @@ body {
 }
 
 .register-button {
-    background-color: #1a73e8;
+    background-color: #2ebf91;
     color: white;
     border: none;
     border-radius: 5px;
@@ -164,7 +162,7 @@ body {
 }
 
 .register-button:hover {
-    background-color: #1967d2;
+    background-color: #3ed2a3;
 }
 
 .or-divider {

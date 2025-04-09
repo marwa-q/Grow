@@ -9,10 +9,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Raleway:wght@600;800&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="/app/views/LandingPage/aboutme.css">
 
-    <link rel="stylesheet" href="/app/views/LandingPage/contact.css">
-    <link rel="stylesheet" href="/app/views/Navbar/nav.css">
     <style>
         *{
     margin: 0;
@@ -66,7 +63,7 @@ html {
   }
   
   #contact-form h2 {
-    color: var(--orange);
+    color: #2ebf91;
     margin-bottom: 20px;
   }
   
@@ -108,7 +105,7 @@ html {
   }
   
   .cta-button {
-    background-color: var(--orange);
+    background-color: #2ebf91;
     color: white;
     padding: 15px 30px;
     font-size: 1.2rem;
@@ -118,7 +115,7 @@ html {
   }
   
   .cta-button:hover {
-    background-color: var(--orange);
+    background-color:rgb(66, 207, 162);
   }
   
   /* Media Queries for Responsiveness */
@@ -183,4 +180,7 @@ html {
             document.getElementById("form").reset(); // Clear fields on load
         };
     </script>
+        @include('layouts.footer')
+
     @endsection
+
