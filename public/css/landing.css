@@ -1,10 +1,25 @@
+:root {
+    --primary-color: #2ebf91;
+    --secondary-color: #F8ED8C;
+    --accent-color: #FF8989;
+    --hover-color: #51d4ab;
+}
+
+body {
+    font-family: 'Tajawal', sans-serif;
+}
+
 .btn-primary {
-    background-color: #2ebf91!important;
+    background-color: var(--primary-color) !important;
     border: none;
 }
 
+.btn-primary:hover {
+    background-color: var(--hover-color) !important;
+}
+
 .hero-section {
-    height: 80vh;
+    height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;

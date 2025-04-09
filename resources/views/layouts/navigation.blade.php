@@ -1,29 +1,37 @@
 <style>
+    
+    :root {
+    --primary-color: #2ebf91;
+    --secondary-color: #F8ED8C;
+    --accent-color: #FF8989;
+    --hover-color: hsl(70, 70%, 67%);
+    }
+
     .brand-color {
-        color: #2ebf91;
+        color: var(--primary-color);
     }
 
     .brand-color:hover {
-        color: #2ebf91;
+        color: var(--primary-color);
     }
 
     .btn-primary-custom {
-        background-color: #2ebf91;
+        background-color: var(--primary-color) ;
         border: none;
         color: white;
     }
 
     .btn-primary-custom:hover {
-        background-color: #2ebf91;
+        background-color: var(--hover-color);
         color: white;
     }
 
     .nav-link:hover {
-        color: #2ebf91 !important;
+        color: var(--hover-color) !important;
     }
 </style>
 
-<nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom shadow-sm sticky-top">
+<nav class="navbar d-flex justify-content-around navbar-expand-lg navbar-light bg-white border-bottom shadow-sm sticky-top">
     <div class="container">
         <a class="navbar-brand fw-bold brand-color" href="{{ route('home') }}">Grow</a>
 

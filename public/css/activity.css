@@ -1,6 +1,14 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap');
 
+:root {
+    --primary-color: #2ebf91;
+    --secondary-color: #F8ED8C;
+    --accent-color: #FF8989;
+    --hover-color: #5ad0aa;;
+    --secondary-hover: #f5eead;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -10,13 +18,14 @@
 }
 
 body {
+    font-family: 'Tajawal', sans-serif;
     background-color: #f8f9fa;
     color: #333;
     text-align: center;
 }
 
 .page-header {
-    background: #2ebf91;
+    background: var(--primary-color);
     color: white;
     padding: 30px 0;
     margin-bottom: 30px;
@@ -54,7 +63,7 @@ body {
 }
 
 .category-button.active {
-    background: #2ebf91;
+    background: var(--primary-color);
     color: white;
     transform: translateY(-3px);
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
@@ -84,7 +93,7 @@ body {
     position: absolute;
     width: 50%;
     height: 4px;
-    background: #2ebf91;
+    background: var(--primary-color);
     bottom: -10px;
     left: 25%;
     border-radius: 2px;
@@ -117,7 +126,7 @@ body {
 
 .card:hover {
     transform: translateY(-10px);
-    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1);
 }
 
 .card img {
@@ -139,7 +148,7 @@ body {
     position: absolute;
     top: 15px;
     right: 15px;
-    background: #2ebf91;
+    background: var(--primary-color);
     color: white;
     padding: 5px 15px;
     border-radius: 20px;
@@ -197,23 +206,23 @@ body {
 }
 
 .btn-join {
-    background: #2ecc71;
+    background: var(--primary-color);
     color: white;
 }
 
 .btn-join:hover {
-    background: #27ae60;
+    background: var(--hover-color);
     transform: translateY(-3px);
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
 }
 
 .btn-donate {
-    background: #f1c40f;
+    background: var(--secondary-color);
     color: white;
 }
 
 .btn-donate:hover {
-    background:  #f39c12;
+    background:  var(--secondary-hover);
     transform: translateY(-3px);
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
 }

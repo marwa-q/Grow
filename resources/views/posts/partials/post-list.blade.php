@@ -1,6 +1,7 @@
 @foreach ($posts as $post)
-<div class="card rounded-lg shadow-sm my-4 overflow-hidden">
-    <!-- User Info Section -->
+<div class="post-card card rounded shadow-sm my-3 p-2" style="max-width: 600px; margin: auto;">
+
+<!-- User Info Section -->
     <div class="card-header bg-white border-0 d-flex align-items-center p-3">
         <div class="avatar me-2">
             <img src="{{ $post->user->profile_photo ?? asset('images/avatar.jpg') }}" class="rounded-circle" width="40" height="40" alt="User Avatar">

@@ -7,7 +7,12 @@
     .btn-primary {
     background-color: #2ebf91 !important;
     border: none;
-}
+    }
+
+    .post-card {
+        width: 50vw !important;
+    }
+
 </style>
 
 <div class="container mt-5">

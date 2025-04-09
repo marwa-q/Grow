@@ -1,9 +1,15 @@
 @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap');
 
+:root {
+    --primary-color: #2ebf91;
+    --secondary-color: #F8ED8C;
+    --accent-color: #FF8989;
+    --hover-color: hsl(70, 70%, 67%);
+}
+
 body {
     font-family: 'Tajawal', sans-serif;
     background-color: #f8f9fa;
-    color: #333;
     line-height: 1.6;
 }
 
