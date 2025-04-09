@@ -18,17 +18,8 @@
             background-color: #f8f9fa;
         }
 
-        .sidebar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            height: 100%;
-            z-index: 100;
-            transition: all 0.3s;
-        }
-
         .main-content {
-            margin-left: 250px;
+           
             transition: all 0.3s;
         }
 
@@ -97,12 +88,12 @@
     <div class="d-flex">
         <!-- Include the Sidebar -->
         @include('admin.partials.sidebar')
-        <div class="w-100">
+        <div class="container p-4">
             <!-- Include the navbar -->
             @include('admin.partials.adminNavbar')
 
             <!-- Main Content -->
-            <main>
+            <main class="mb-4">
                 @yield('content')
             </main>
         </div>
