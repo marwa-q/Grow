@@ -20,6 +20,7 @@
         <div class="register-form">
             <div class="register-form-header">
                 <h2>Grow</h2>
+                <h3>Create Your Account</h3>
                 <p>Join our community and start making an impact</p>
             </div>
             <form method="POST" action="{{ route('register') }}">
@@ -30,7 +31,7 @@
                     <label for="firstName">First Name</label>
                     <input type="text" id="firstName" name="first_name" value="{{ old('first_name') }}"
                         placeholder="Enter first name" required />
-                    <x-input-error :messages="$errors->get('first_name')" class="mt-2" />
+                    <x-input-error :messages="$errors->get('first_name')" class="error mt-2" />
                 </div>
 
                 <!-- Last Name -->
@@ -38,7 +39,7 @@
                     <label for="lastName">Last Name</label>
                     <input type="text" id="lastName" name="last_name" value="{{ old('last_name') }}"
                         placeholder="Enter last name" required />
-                    <x-input-error :messages="$errors->get('last_name')" class="mt-2" />
+                    <x-input-error :messages="$errors->get('last_name')" class="error mt-2" />
                 </div>
 
                 <!-- Email Address -->
@@ -46,7 +47,7 @@
                     <label for="email">Email Address</label>
                     <input type="email" id="email" name="email" value="{{ old('email') }}"
                         placeholder="Enter your email" required />
-                    <x-input-error :messages="$errors->get('email')" class="mt-2" />
+                    <x-input-error :messages="$errors->get('email')" class="error mt-2" />
                 </div>
 
                 <!-- Password -->
@@ -54,7 +55,7 @@
                     <label for="password">Create Password</label>
                     <input type="password" id="password" name="password" placeholder="Create a strong password"
                         required />
-                    <x-input-error :messages="$errors->get('password')" class="mt-2" />
+                    <x-input-error :messages="$errors->get('password')" class="error mt-2" />
                 </div>
 
                 <!-- Confirm Password -->
@@ -62,7 +63,7 @@
                     <label for="password_confirmation">Confirm Password</label>
                     <input type="password" id="password_confirmation" name="password_confirmation"
                         placeholder="Confirm your password" required />
-                    <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
+                    <x-input-error :messages="$errors->get('password_confirmation')" class="error mt-2" />
                 </div>
 
 
