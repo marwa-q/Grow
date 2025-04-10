@@ -1,10 +1,25 @@
+:root {
+    --primary-color: #2ebf91;
+    --secondary-color: #F8ED8C;
+    --accent-color: #FF8989;
+    --hover-color: #51d4ab;
+}
+
+body {
+    font-family: 'Tajawal', sans-serif;
+}
+
 .btn-primary {
-    background-color: #2ebf91!important;
-    border: none;
+    background-color: var(--primary-color) !important;
+    border: none !important;
+}
+
+.btn-primary:hover {
+    background-color: var(--hover-color) !important;
 }
 
 .hero-section {
-    height: 80vh;
+    height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -14,15 +29,75 @@
     display: flex;
     flex-direction: column;
     align-items: start;
+    justify-content: start;
+}
+
+.hero-content h1 {
+    text-align: start;
 }
 
 .hero-image {
-    width: 500px;
+    width: -9px;
 }
 
 .heading {
     font-size: 2rem;
 }
+
+.card-activity:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1);
+}
+
+@media only screen and (min-width: 768px) and (max-width: 1024px) {
+    .hero-section {
+        height: 80vh; /* Reduce the hero section height */
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .hero-image {
+        display: none;
+    }
+
+    .hero-content {
+        text-align: start;
+        align-items: start;
+        justify-content: start;
+        padding: 20px;
+    }
+
+    .hero-image {
+        width: 400px; /* Adjust the hero image width */
+        margin-top: 20px;
+    }
+
+    .heading {
+        font-size: 1.8rem; /* Adjust the heading font size */
+    }
+
+    .btn-primary {
+        font-size: 1rem; /* Adjust the button font size */
+        padding: 12px 20px;
+    }
+
+    .card-img-top {
+        height: 180px; /* Adjust card image height for tablet view */
+    }
+
+    .card-body {
+        padding: 15px;
+    }
+
+    .text-center {
+        text-align: center;
+    }
+
+    .container {
+        padding: 0 15px; /* Adjust container padding */
+    }
+}
+
 
 @media only screen and (max-width: 767px) {
 

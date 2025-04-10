@@ -1,11 +1,10 @@
 @foreach ($posts as $post)
-    <div class="card rounded-lg shadow-sm my-4 overflow-hidden m-auto">
+<div class="post-card card rounded shadow-sm my-3 p-2" style="max-width: 600px; margin: auto;">
         <!-- User Info Section -->
         <div class="container">
             <div class="card-header bg-white border-0 d-flex align-items-center p-3">
                 <div class="avatar me-2">
-                    <img src="{{ $post->user->profile_photo ?? asset('images/avatar.jpg') }}" class="rounded-circle"
-                        width="40" height="40" alt="User Avatar">
+                <img src="{{ $post->user->profile_photo ?? asset('images/avatar.jpg') }}" class="rounded-circle" width="32" height="32" alt="User Avatar">
                 </div>
                 <div class="user-info">
                     <h6 class="mb-0 fw-bold">{{ $post->user->first_name }}</h6>
@@ -130,6 +129,6 @@
 @endforeach
 
 <!-- Load More Button -->
-<div class="text-center">
+<!-- <div class="text-center">
     <a href="{{ route('posts.index')}}" id="load-more-btn" class="btn btn-primary btn-lg mt-3 mb-3">Load More</a>
-</div>
+</div> -->

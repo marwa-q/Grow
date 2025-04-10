@@ -1,3 +1,10 @@
+:root {
+    --primary-color: #2ebf91;
+    --secondary-color: #F8ED8C;
+    --accent-color: #FF8989;
+    --hover-color: #5ad0aa;;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -6,23 +13,22 @@
 }
 
 body {
-    background-color: #e2f1c1;
+    font-family: 'Tajawal', sans-serif;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
-    padding: 20px;
+    min-height: 100vh;
 }
 
 .register-container {
     background-color: white;
-    border-radius: 15px;
     overflow: hidden;
     width: 100%;
-    max-width: 800px;
+    max-width: 100vw;
+    height: 100vh;
     display: flex;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-    max-height: 90vh; /* Limit height to viewport */
 }
 
 .register-image {
@@ -53,11 +59,10 @@ body {
 
 .register-form {
     width: 50%;
-    padding: 16px; /* Reduced padding */
+    padding: 40px;
     display: flex;
     flex-direction: column;
-    overflow-y: auto;
-    /* Removed max-height that was causing the scrollbar */
+    justify-content: center;
 }
 
 .register-form-header {
@@ -65,7 +70,7 @@ body {
 }
 
 .register-form-header h2 {
-    color:  #8360c3;
+    color:  var(--primary-color);
     display: flex;
     align-items: center;
     font-size: 1.3rem;
@@ -73,7 +78,7 @@ body {
 }
 
 .register-form-header h2 .heart-icon {
-    color:   #2ebf91;
+    color:   var(--primary-color);
     margin-right: 10px;
     font-size: 1.2rem;
 }
@@ -148,7 +153,7 @@ body {
 }
 
 .register-button {
-    background-color: #2ebf91;
+    background-color: var(--primary-color);
     color: white;
     border: none;
     border-radius: 5px;
@@ -162,7 +167,7 @@ body {
 }
 
 .register-button:hover {
-    background-color: #3ed2a3;
+    background-color: var(--hover-color);
 }
 
 .or-divider {
@@ -204,7 +209,7 @@ body {
 }
 
 .login-link a {
-    color: #1a73e8;
+    color: var(--accent-color);
     text-decoration: none;
     font-weight: 500;
 }
@@ -246,7 +251,7 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    background-image: url("https://media.istockphoto.com/id/1586911323/photo/close-up-of-african-woman-hands-holding-red-heart-in-solidarity.jpg?s=612x612&w=0&k=20&c=of0vz5Ddd-BPWrbUy1g51hzBD8qf842zwPj-7VR4cpU=");
+    background-image: url("https://t3.ftcdn.net/jpg/02/09/43/80/360_F_209438048_bqYPR1SZJx583icNF2fasiwfnttqMZZn.jpg");
     background-size: cover;
     background-position: center;
     opacity: 0.7;
