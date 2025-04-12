@@ -36,6 +36,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+     // Add this line:
+     Route::delete('/profile/remove-photo', [ProfileController::class, 'removePhoto'])->name('profile.remove-photo');
+     // Also add this route for email updates that's used in your modal form:
+     Route::post('/profile/update-email', [ProfileController::class, 'updateEmail'])->name('profile.update-email');
 });
 
 
