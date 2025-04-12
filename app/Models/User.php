@@ -24,6 +24,7 @@ class User extends Authenticatable
         'phone',
         'profile_image',
         'role',
+        'bio'
     ];
 
     /**
@@ -105,4 +106,6 @@ class User extends Authenticatable
     {
         return $this->hasMany(PostComment::class);
     }
+
+    
 }

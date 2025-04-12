@@ -135,36 +135,36 @@
     <!-- Profile Content -->
     <div class="my-5 container profile-container">
 
-    <!-- Flash Messages -->
-<div class="row">
-    <div class="col-12">
-        @if(session('success'))
-            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                {{ session('success') }}
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-        @endif
+        <!-- Flash Messages -->
+        <div class="row">
+            <div class="col-12">
+                @if(session('success'))
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        {{ session('success') }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                @endif
 
-        @if(session('error'))
-            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                {{ session('error') }}
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-        @endif
+                @if(session('error'))
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        {{ session('error') }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                @endif
 
-        @if($errors->any())
-            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                <ul class="mb-0">
-                    @foreach($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                @if($errors->any())
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <ul class="mb-0">
+                            @foreach($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                @endif
             </div>
-        @endif
-    </div>
-</div>
-<!-- End Flash Messages -->
+        </div>
+        <!-- End Flash Messages -->
         <div class="row">
             <!-- Left Column - User Info -->
             <div class="col-lg-4 ">
@@ -174,9 +174,18 @@
                         <div class="mb-3">
                             {!! getProfileImage($user) !!}
                         </div>
+                        @if($user->profile_image)
+                            <form action="{{ route('profile.remove-photo') }}" method="POST" class="mb-3">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-outline-danger btn-sm">
+                                    <i class="fas fa-trash-alt me-1"></i> Remove Photo
+                                </button>
+                            </form>
+                        @endif
                         <h4 class="mb-1">{{ $user->first_name }} {{ $user->last_name }}</h4>
                         <p class="text-muted">
-                            <i class="bi bi-geo-alt-fill"></i> {{ $user->city ?? 'No location' }}
+                            <i class="bi bi-geo-alt-fill"></i> {{ $user->bio ?? 'No Bio Added' }}
                         </p>
                         <span class="badge bg-secondary">{{ $user->role }}</span>
                     </div>
@@ -185,24 +194,33 @@
                 <!-- User Stats -->
                 <div class="profile-card">
                     <h5 class="mb-3 text-center">Activity Summary</h5>
-                    <div class="row">
-                        <div class="col-6 profile-stat">
+                    <div class="row row-cols-2 row-cols-md-4 g-3">
+                        <div class="col text-center profile-stat">
                             <h3 class="text-success">{{ $activityCount ?? 0 }}</h3>
                             <p>Activities</p>
                         </div>
-                        <div class="col-6 profile-stat">
+                        <div class="col text-center profile-stat">
                             <h3 class="text-success">{{ $postCount ?? 0}}</h3>
                             <p>Posts</p>
                         </div>
+                        <div class="col text-center profile-stat">
+                            <h3 class="text-success">{{ $likedPostsCount ?? 0}}</h3>
+                            <p>Liked Posts</p>
+                        </div>
+                        <div class="col text-center profile-stat">
+                            <h3 class="text-success">{{ $commentsCount ?? 0}}</h3>
+                            <p>Comments</p>
+                        </div>
                     </div>
-                </div>
+                </div>  
 
                 <!-- Contact Info -->
                 <div class="profile-card">
                     <h5 class="mb-3">Contact Information</h5>
                     <div class="mb-2">
-                        <i class="fas fa-envelope me-2 text-muted"></i> <a href="mailto:{{ $user->email }}"
-                            class="text-decoration-none">{{ $user->email }}</a>
+                        <i class="fas fa-envelope me-2 text-muted"></i>{{ $user->email }}
+                        <a href="#" class="ps-5" data-bs-toggle="modal" data-bs-target="#emailChangeModal">Change
+                            Email</a>
                     </div>
                     <div class="mb-2">
                         <i class="fas fa-phone me-2 text-muted"></i>
@@ -210,6 +228,163 @@
                     </div>
                 </div>
             </div>
+
+            <!-- Email Change Modal using Bootstrap 5 -->
+            <div class="modal fade" id="emailChangeModal" tabindex="-1" aria-labelledby="emailChangeModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="emailChangeModalLabel">Change Email Address</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <form action="{{ route('profile.update-email') }}" method="POST" id="emailChangeForm">
+                            @csrf
+                            <div class="modal-body">
+                                <p>Current Email: <span class="fw-bold">{{ $user->email }}</span></p>
+
+                                <div class="mb-3">
+                                    <label for="password" class="form-label">Enter Password to Confirm</label>
+                                    <input type="password" class="form-control" id="password" name="password" required>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="new_email" class="form-label">New Email Address</label>
+                                    <input type="email" class="form-control" id="new_email" name="new_email" required>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                <button type="submit" class="btn btn-success" id="updateEmailBtn">Update Email</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <script>
+                // Wait for the document to be fully loaded
+                document.addEventListener('DOMContentLoaded', function () {
+                    // Log for debugging
+                    console.log('DOM fully loaded');
+
+                    // Function to auto-dismiss alerts after 5 seconds
+                    function setupAutoDismissAlerts() {
+                        const alerts = document.querySelectorAll('.alert');
+                        alerts.forEach(alert => {
+                            setTimeout(() => {
+                                // Create a bootstrap alert instance and hide it
+                                const bsAlert = new bootstrap.Alert(alert);
+                                bsAlert.close();
+                            }, 5000); // 5000 milliseconds = 5 seconds
+                        });
+                    }
+
+                    // Call the function for any alerts that exist when page loads
+                    setupAutoDismissAlerts();
+
+                    // Get the email change form
+                    const emailChangeForm = document.getElementById('emailChangeForm');
+
+                    if (emailChangeForm) {
+                        console.log('Email change form found');
+
+                        // Add submit event listener to the form
+                        emailChangeForm.addEventListener('submit', function (e) {
+                            // Prevent the default form submission
+                            e.preventDefault();
+                            console.log('Form submission intercepted');
+
+                            // Create formData object
+                            const formData = new FormData(this);
+
+                            // Create an AJAX request
+                            fetch(this.action, {
+                                method: 'POST',
+                                body: formData,
+                                headers: {
+                                    'X-Requested-With': 'XMLHttpRequest'
+                                },
+                                credentials: 'same-origin'
+                            })
+                                .then(response => {
+                                    console.log('Response received');
+                                    return response.json();
+                                })
+                                .then(data => {
+                                    console.log('Data processed:', data);
+
+                                    // Close the modal
+                                    const modalElement = document.getElementById('emailChangeModal');
+                                    const modal = bootstrap.Modal.getInstance(modalElement);
+                                    modal.hide();
+
+                                    // Create flash message
+                                    let alertHtml = '';
+
+                                    if (data.success) {
+                                        alertHtml = `
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            ${data.success}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    `;
+
+                                        // Update the displayed email
+                                        const emailDisplay = document.querySelector('.fas.fa-envelope.me-2.text-muted').nextSibling;
+                                        if (emailDisplay) {
+                                            emailDisplay.textContent = data.email;
+                                        }
+                                    } else if (data.error) {
+                                        alertHtml = `
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            ${data.error}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    `;
+                                    }
+
+                                    // Find the flash message container and insert the message
+                                    const flashContainer = document.querySelector('.row:first-child .col-12');
+                                    if (flashContainer) {
+                                        flashContainer.innerHTML = alertHtml;
+                                        // Scroll to top to show the message
+                                        window.scrollTo(0, 0);
+
+                                        // Setup auto-dismiss for the newly added alert
+                                        setupAutoDismissAlerts();
+                                    }
+                                })
+                                .catch(error => {
+                                    console.error('Error:', error);
+                                    // Handle error
+                                    const modalElement = document.getElementById('emailChangeModal');
+                                    const modal = bootstrap.Modal.getInstance(modalElement);
+                                    modal.hide();
+
+                                    // Create error flash message
+                                    const alertHtml = `
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        An error occurred while processing your request. Please try again.
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                `;
+
+                                    const flashContainer = document.querySelector('.row:first-child .col-12');
+                                    if (flashContainer) {
+                                        flashContainer.innerHTML = alertHtml;
+                                        window.scrollTo(0, 0);
+
+                                        // Setup auto-dismiss for the newly added alert
+                                        setupAutoDismissAlerts();
+                                    }
+                                });
+                        });
+                    } else {
+                        console.error('Email change form not found');
+                    }
+                });
+            </script>
 
 
             <!-- Right Column - Tabs and Content -->
@@ -299,9 +474,9 @@
                                 </div>
 
                                 <div class="mb-3">
-                                    <label for="email" class="form-label">Email Address</label>
-                                    <input type="email" class="form-control" id="email" name="email"
-                                        value="{{ $user->email }}">
+                                    <label for="bio" class="form-label">Bio</label>
+                                    <textarea class="form-control" id="bio" name="bio" rows="3"
+                                        placeholder="Tell us about yourself">{{ $user->bio }}</textarea>
                                 </div>
 
                                 <div class="mb-3">
@@ -387,28 +562,29 @@
         };
     </script>
 
-<script>
-    // Auto-dismiss alerts after 5 seconds
-    document.addEventListener('DOMContentLoaded', function() {
-        setTimeout(function() {
-            let alerts = document.querySelectorAll('.alert');
-            alerts.forEach(function(alert) {
-                // Check if Bootstrap is loaded
-                if (typeof bootstrap !== 'undefined') {
-                    let bsAlert = new bootstrap.Alert(alert);
-                    bsAlert.close();
-                } else {
-                    // Fallback if Bootstrap JS is not loaded
-                    alert.style.opacity = '0';
-                    alert.style.transition = 'opacity 0.5s';
-                    setTimeout(function() {
-                        alert.style.display = 'none';
-                    }, 500);
-                }
-            });
-        }, 5000);
-    });
-</script>
+    <script>
+        // Auto-dismiss alerts after 5 seconds
+        document.addEventListener('DOMContentLoaded', function () {
+            setTimeout(function () {
+                let alerts = document.querySelectorAll('.alert');
+                alerts.forEach(function (alert) {
+                    // Check if Bootstrap is loaded
+                    if (typeof bootstrap !== 'undefined') {
+                        let bsAlert = new bootstrap.Alert(alert);
+                        bsAlert.close();
+                    } else {
+                        // Fallback if Bootstrap JS is not loaded
+                        alert.style.opacity = '0';
+                        alert.style.transition = 'opacity 0.5s';
+                        setTimeout(function () {
+                            alert.style.display = 'none';
+                        }, 500);
+                    }
+                });
+            }, 5000);
+        });
+    </script>
+
 </body>
 
 </html>

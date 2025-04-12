@@ -93,18 +93,17 @@ class ProfileController extends Controller
         $validated = $request->validate([
             'first_name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users,email,' . Auth::id(),
             'phone' => 'nullable|string|max:20',
+            'bio' => 'nullable|string|max:1000', // Add this line
             'profile_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'current_password' => 'nullable|required_with:password',
             'password' => 'nullable|string|min:8|confirmed',
         ]);
-    
         $user = Auth::user();
         $updateMessage = 'Profile updated successfully';
         $hasProfileImageUpdate = false;
         $hasPasswordUpdate = false;
-    
+
         // Handle profile image upload if provided
         if ($request->hasFile('profile_image')) {
             $imageName = time() . '.' . $request->profile_image->extension();
@@ -112,70 +111,90 @@ class ProfileController extends Controller
             $user->profile_image = 'images/profiles/' . $imageName;
             $hasProfileImageUpdate = true;
         }
-    
+
         // Update user data
         $user->first_name = $request->first_name;
         $user->last_name = $request->last_name;
-        $user->email = $request->email;
         $user->phone = $request->phone;
-    
-        // Handle password change if provided
+        $user->bio = $request->bio; // Add this line
+
+        // Save the updated user data
+        $user->save();
+
+        // Check if password update was requested
         if ($request->filled('password')) {
-            // Check if the current password field was provided
-            if (!$request->filled('current_password')) {
-                return back()->withErrors([
-                    'current_password' => 'Current password is required to change your password.',
-                ])->withInput();
-            }
-            
-            // Verify current password
+            // Verify the current password
             if (!Hash::check($request->current_password, $user->password)) {
-                return back()->withErrors([
-                    'current_password' => 'The provided password does not match your current password.',
-                ])->withInput();
+                return redirect()->back()->with('error', 'Current password is incorrect');
             }
-    
+
+            // Update the password
             $user->password = Hash::make($request->password);
+            $user->save();
             $hasPasswordUpdate = true;
         }
-    
-        // Check if email was changed and reset verification timestamp
-        if ($user->isDirty('email')) {
-            $user->email_verified_at = null;
-        }
-    
-        $user->save();
-    
-        // Customize success message based on what was updated
-        if ($hasPasswordUpdate && $hasProfileImageUpdate) {
+
+        // Build success message
+        if ($hasProfileImageUpdate && $hasPasswordUpdate) {
             $updateMessage = 'Profile and password updated successfully';
+        } elseif ($hasProfileImageUpdate) {
+            $updateMessage = 'Profile updated successfully';
         } elseif ($hasPasswordUpdate) {
             $updateMessage = 'Password updated successfully';
-        } elseif ($hasProfileImageUpdate) {
-            $updateMessage = 'Profile image updated successfully';
         }
-    
-        return redirect()->back()->with('success', $updateMessage);
+
+        return redirect()->route('profile.edit')->with('success', $updateMessage);
     }
 
-    /**
-     * Update the user's profile information with ProfileUpdateRequest.
-     *
-     * @param  \App\Http\Requests\ProfileUpdateRequest  $request
-     * @return \Illuminate\Http\RedirectResponse
-     */
 
 
-    /**
-     * Get profile image HTML with initials fallback
-     * 
-     * @param \App\Models\User $user
-     * @param int $size Size in pixels
-     * @return string HTML for the profile image
-     */
-   
+    // ProfileController.php
+    public function updateEmail(Request $request)
+    {
+        $request->validate([
+            'password' => 'required',
+            'new_email' => 'required|email|unique:users,email,' . auth()->id(),
+        ]);
+
+        $user = auth()->user();
+
+        // Verify password
+        if (!Hash::check($request->password, $user->password)) {
+            return response()->json([
+                'error' => 'The provided password does not match your current password.'
+            ]);
+        }
+
+        // Update email
+        $user->email = $request->new_email;
+        $user->save();
+
+        if ($request->ajax()) {
+            return response()->json([
+                'success' => 'Email address updated successfully!',
+                'email' => $user->email
+            ]);
+        }
+
+        return redirect()->back()->with('success', 'Email address updated successfully!');
+    }
 
 
+    public function removePhoto()
+    {
+        $user = Auth::user();
+
+        // Delete the actual file if it exists
+        if ($user->profile_image && file_exists(public_path($user->profile_image))) {
+            unlink(public_path($user->profile_image));
+        }
+
+        // Set the profile_image field to null
+        $user->profile_image = null;
+        $user->save();
+
+        return redirect()->back()->with('success', 'Profile photo removed successfully');
+    }
 
     public function updateWithRequest(ProfileUpdateRequest $request): RedirectResponse
     {
