@@ -12,28 +12,35 @@
                 </div>
 
                 <!-- Options Menu (three dots) -->
-                <div class="dropdown ms-auto">
-                    <button class="btn btn-sm text-muted bg-transparent border-0" type="button"
-                        id="postOptionsMenu{{ $post->id }}" data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="bi bi-three-dots-vertical"></i>
-                    </button>
-                    <ul class="dropdown-menu dropdown-menu-end shadow-sm" aria-labelledby="postOptionsMenu{{ $post->id }}">
-                        <li><a class="dropdown-item" href="#">Report</a></li>
-                        @if(auth()->id() == $post->user_id)
-                            <li><a class="dropdown-item" href="{{ route('posts.edit', $post->id) }}">Edit</a></li>
-                            <li>
-                                <hr class="dropdown-divider">
-                            </li>
-                            <li>
-                                <form action="{{ route('posts.destroy', $post->id) }}" method="POST">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button class="dropdown-item text-danger" type="submit">Delete</button>
-                                </form>
-                            </li>
-                        @endif
-                    </ul>
-                </div>
+    <div class="dropdown ms-auto">
+    <button class="btn btn-sm text-muted bg-transparent border-0" type="button"
+        id="postOptionsMenu{{ $post->id }}" data-bs-toggle="dropdown" aria-expanded="false">
+        <i class="bi bi-three-dots-vertical"></i>
+    </button>
+
+    <ul class="dropdown-menu dropdown-menu-end shadow-sm"
+        aria-labelledby="postOptionsMenu{{ $post->id }}">
+
+        <!-- Report option (for all users) -->
+        <li><a class="dropdown-item" href="{{ route('contact') }}">Report</a></li>
+
+        @if(auth()->id() == $post->user_id)
+            <li><a class="dropdown-item" href="{{ route('posts.edit', $post->id) }}">Edit</a></li>
+
+            <li><hr class="dropdown-divider"></li>
+
+            <li>
+            <form action="{{ route('posts.destroy', $post->id) }}" method="POST"
+            onsubmit="return confirm('Are you sure you want to delete this post?');">
+            @csrf
+            @method('DELETE')
+            <button class="dropdown-item text-danger" type="submit">Delete</button>
+        </form>
+            </li>
+        @endif
+    </ul>
+</div>
+
             </div>
 
             <!-- Post Content -->
@@ -47,13 +54,17 @@
                 <p class="card-text mb-3">{{ $post->content }}</p>
 
                 <!-- Post Image (if exists) -->
-                @if($post->image)
 
-                    <div class="post-image mb-3">
-                        <img style="width: 700px;" src="{{ asset('storage/' . $post->image) }}" alt="Post Image"
-                            class="img-fluid rounded">
-                    </div>
-                @endif
+
+<div class="post-image mb-3">
+    @if($post->image && Storage::disk('public')->exists($post->image))
+        <img style="width: 700px;" src="{{ asset('storage/' . $post->image) }}" alt="Post Image"
+            class="img-fluid rounded">
+    @else
+        <img style="width: 700px;" src="{{ asset('images/default-image.jpg') }}" alt="Default Image"
+            class="img-fluid rounded">
+    @endif
+</div>
 
                 <!-- Post Stats (Likes/Comments count) -->
                 <div class="d-flex align-items-center mt-2 text-muted small">
@@ -72,30 +83,30 @@
         <hr class="my-1">
 
         <!-- Action Buttons -->
-        <div class="card-footer bg-white border-0 d-flex justify-content-between p-2">
-            <form action="{{ Auth::check() ? route('posts.like', $post->id) : route('login') }}" method="POST"
-                class="like-form flex-fill">
-                @csrf
-                @if($post->likes->contains('user_id', auth()->id()))
-                    @method('DELETE')
-                    <button type="submit" class="btn btn-light w-100 like-btn liked rounded-pill py-1"
-                        data-post-id="{{ $post->id }}">
-                        <i class="bi bi-heart-fill text-danger"></i> Liked
-                    </button>
-                @else
-                    <button type="submit" class="btn btn-light w-100 like-btn rounded-pill py-1" data-post-id="{{ $post->id }}">
-                        <i class="bi bi-heart"></i> Like
-                    </button>
-                @endif
-            </form>
-
-            <button class="btn btn-light flex-fill ms-2 comment-btn rounded-pill py-1" data-post-id="{{ $post->id }}">
+    <div class="card-footer bg-white border-0 d-flex justify-content-between p-2">
+    @auth
+    <form action="{{ route('posts.like', $post->id) }}" method="POST" class="like-form flex-fill">
+    @else
+    <form action="{{ route('login') }}" method="GET" class="flex-fill">
+    @endauth
+        @csrf
+        @if($post->likes->contains('user_id', auth()->id()))
+            <button type="submit" class="btn btn-light w-100 like-btn liked rounded-pill py-1" data-post-id="{{ $post->id }}">
+                <i class="bi bi-heart-fill text-danger"></i> Liked
+            </button>
+        @else
+            <button type="submit" class="btn btn-light w-100 like-btn rounded-pill py-1" data-post-id="{{ $post->id }}">
+                <i class="bi bi-heart"></i> Like
+            </button>
+        @endif
+    </form>
+    <button class="btn btn-light flex-fill ms-2 comment-btn rounded-pill py-1" data-post-id="{{ $post->id }}">
                 <i class="bi bi-chat"></i> Comment
             </button>
+</div>
+            
 
-        </div>
-
-        <!-- Comments Section -->
+            <!-- Comments Section -->
         <div class="comments-container bg-light p-3 d-none" id="comments-{{ $post->id }}">
             <div class="comments-list mb-3">
                 <!-- Comments will be loaded here -->
@@ -126,9 +137,13 @@
             @endauth
         </div>
     </div>
+        </div>
+
+        
 @endforeach
 
 <!-- Load More Button -->
 <!-- <div class="text-center">
     <a href="{{ route('posts.index')}}" id="load-more-btn" class="btn btn-primary btn-lg mt-3 mb-3">Load More</a>
 </div> -->
+

@@ -1,8 +1,8 @@
 @extends('layouts.app')
-@section('title' , 'Edit post')
+@section('title', 'Edit post')
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
+<div class="container d-flex justify-content-center align-items-center" style="min-height: 100vh;">
+    <div class="row justify-content-center w-100">
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">Edit Post</div>
@@ -53,7 +53,7 @@
                         </div>
 
                         <div class="d-flex justify-content-between">
-                            <a href="{{ route('home') }}" class="btn btn-secondary">Cancel</a>
+                            <a href="{{ route('posts.update', $post->id) }}" class="btn btn-secondary">Cancel</a>
                             <button type="submit" class="btn btn-primary">Update Post</button>
                         </div>
                     </form>
