@@ -91,13 +91,14 @@ class PostController extends Controller
         
         $post->save();
         
-        return redirect()->route('posts')->with('success', 'Post updated successfully!');
+        return redirect()->route('posts.index')->with('success', 'Post updated successfully!');
     }
 
     // Delete a post
     public function destroy(Post $post)
     {
         $post->delete();
-        return Redirect::route('posts.index');
+        return redirect()->route('posts.index');
     }
+    
 }

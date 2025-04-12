@@ -15,27 +15,18 @@ document.addEventListener("DOMContentLoaded", function () {
                 },
                 body: formData
             })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error("Request failed");
-                }
-                return fetch(`/posts/${postId}/comments`); // temporary fetch just to simulate follow-up call
-            })
-            .then(() => {
+            .then(response => response.json())  // Parse as JSON to get the result from the server
+            .then(data => {
                 // Toggle like button state
-                if (likeButton.classList.contains("liked")) {
-                    likeButton.classList.remove("liked");
-                    likeButton.innerHTML = `<i class="bi bi-heart"></i> Like`;
-                } else {
+                if (data.liked) {
                     likeButton.classList.add("liked");
                     likeButton.innerHTML = `<i class="bi bi-heart-fill text-danger"></i> Liked`;
+                    likeStats.textContent = data.likeCount;
+                } else {
+                    likeButton.classList.remove("liked");
+                    likeButton.innerHTML = `<i class="bi bi-heart"></i> Like`;
+                    likeStats.textContent = data.likeCount;
                 }
-
-                // Update like count manually (optional: re-fetch from server instead)
-                let currentCount = parseInt(likeStats.textContent);
-                likeStats.textContent = likeButton.classList.contains("liked") 
-                    ? currentCount + 1 
-                    : currentCount - 1;
             })
             .catch(error => console.error("Error toggling like:", error));
         });
