@@ -73,7 +73,7 @@
         <h5 class="mb-0">Post Information</h5>
         <div>
             <!-- Edit button removed -->
-            <a href="{{ route('posts.index') }}" class="btn btn-secondary ms-2 action-btn">
+            <a href="{{ route('dashboard.posts.index') }}" class="btn btn-secondary ms-2 action-btn">
                 <i class="fas fa-arrow-left me-1"></i> Back to List
             </a>
         </div>
@@ -103,11 +103,11 @@
                         @endif
                         <div class="me-3 mb-2">
                             <i class="fas fa-comments me-1"></i> 
-                            {{ $post->comments_count }} Comments
+                            {{ $post->comments->count() }} Comments
                         </div>
                         <div class="mb-2">
                             <i class="fas fa-heart me-1 text-danger"></i> 
-                            {{ $post->likes_count }} Likes
+                            {{ $post->likes->count() }} Likes
                         </div>
                     </div>
                 </div>
@@ -131,7 +131,7 @@
                                     <span class="comment-time text-muted ms-2">{{ $comment->created_at ? $comment->created_at->diffForHumans() : 'N/A' }}</span>
                                 </div>
                                 <div>
-                                    <form action="{{ route('posts.comments.delete', $comment->id) }}" method="POST" class="d-inline">
+                                    <form action="{{ route('dashboard.posts.comments.delete', $comment->id) }}" method="POST" class="d-inline">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-sm btn-outline-danger action-btn" 
@@ -153,7 +153,7 @@
                     
                     @if($post->comments->count() > 5)
                     <div class="text-center mt-4">
-                        <a href="{{ route('posts.comments', $post) }}" class="btn btn-primary">
+                        <a href="{{ route('dashboard.posts.comments', $post) }}" class="btn btn-primary">
                             <i class="fas fa-list-alt me-2"></i> View All Comments
                         </a>
                     </div>
@@ -181,11 +181,11 @@
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item d-flex justify-content-between align-items-center">
                                 <span><i class="fas fa-comments text-primary me-2"></i> Comments</span>
-                                <span class="badge bg-primary rounded-pill">{{ $post->comments_count }}</span>
+                                <span class="badge bg-primary rounded-pill">{{ $post->comments->count() }}</span>
                             </li>
                             <li class="list-group-item d-flex justify-content-between align-items-center">
                                 <span><i class="fas fa-heart text-danger me-2"></i> Likes</span>
-                                <span class="badge bg-danger rounded-pill">{{ $post->likes_count }}</span>
+                                <span class="badge bg-danger rounded-pill">{{ $post->likes->count() }}</span>
                             </li>
                             <li class="list-group-item d-flex justify-content-between align-items-center">
                                 <span><i class="fas fa-calendar-plus me-2"></i> Created</span>
@@ -223,7 +223,7 @@
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                                        <form action="{{ route('posts.destroy', $post) }}" method="POST">
+                                        <form action="{{ route('dashboard.posts.destroy', $post) }}" method="POST">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="btn btn-danger">Delete Permanently</button>

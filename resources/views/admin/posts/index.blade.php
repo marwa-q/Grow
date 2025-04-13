@@ -34,7 +34,7 @@
                             @if($post->image)
                                 <img src="{{ asset('storage/'.$post->image) }}" width="50" height="50" class="rounded-circle shadow-sm">
                             @else
-                                <img src="{{ asset('images/default-post.jpg') }}" width="50" height="50" class="rounded-circle shadow-sm">
+                                <img src="{{ asset('https://img.freepik.com/premium-vector/default-image-icon-vector-missing-picture-page-website-design-mobile-app-no-photo-available_87543-11093.jpg') }}" width="50" height="50" class="rounded-circle shadow-sm">
                             @endif
                         </td>
                         <td>{{ Str::limit($post->title, 30) }}</td>
@@ -46,12 +46,12 @@
                                 <span class="badge bg-secondary">None</span>
                             @endif
                         </td>
-                        <td><span class="badge bg-primary">{{ $post->comments_count }}</span></td>
-                        <td><span class="badge bg-danger">{{ $post->likes_count }}</span></td>
+                        <td><span class="badge bg-primary">{{ $post->comments->count() }}</span></td>
+                        <td><span class="badge bg-danger">{{ $post->likes->count() }}</span></td>
                         <td>{{ $post->created_at->format('Y-m-d') }}</td>
                         <td>
                             <div class="btn-group" role="group">
-                                <a href="{{ route('posts.show', $post) }}" class="btn btn-sm btn-info text-white">
+                                <a href="{{ route('dashboard.posts.show', $post) }}" class="btn btn-sm btn-info text-white">
                                     <i class="fas fa-eye"></i>
                                 </a>
                                 <!-- Edit button removed -->
@@ -73,7 +73,7 @@
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                                            <form action="{{ route('posts.destroy', $post) }}" method="POST">
+                                            <form action="{{ route('dashboard.posts.destroy', $post) }}" method="POST">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" class="btn btn-danger">Delete</button>
