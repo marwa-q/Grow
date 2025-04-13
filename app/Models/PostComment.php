@@ -13,7 +13,7 @@ class PostComment extends Model
     protected $fillable = [
         'post_id',
         'user_id',
-        'comment',
+        'content', // تم تغيير الاسم من 'comment' إلى 'content'
     ];
 
     protected $casts = [

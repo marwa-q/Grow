@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\AdminPostsController;
 use App\Http\Controllers\Admin\CommentController;
 use App\Http\Controllers\Admin\DonationController;
 use App\Models\User;
+use App\Models\Donation;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
@@ -32,14 +33,14 @@ Route::get('/dashboard', function () {
 
 
 Route::middleware('auth')->group(function () {
-    
+
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-     // Add this line:
-     Route::delete('/profile/remove-photo', [ProfileController::class, 'removePhoto'])->name('profile.remove-photo');
-     // Also add this route for email updates that's used in your modal form:
-     Route::post('/profile/update-email', [ProfileController::class, 'updateEmail'])->name('profile.update-email');
+    // Add this line:
+    Route::delete('/profile/remove-photo', [ProfileController::class, 'removePhoto'])->name('profile.remove-photo');
+    // Also add this route for email updates that's used in your modal form:
+    Route::post('/profile/update-email', [ProfileController::class, 'updateEmail'])->name('profile.update-email');
 });
 
 
@@ -66,7 +67,17 @@ Route::prefix('dashboard')->middleware(['auth', 'verified'])->group(function () 
     Route::post('posts', [AdminPostsController::class, 'store'])->name('dashboard.posts.store');
     Route::put('posts/{post}', [AdminPostsController::class, 'update'])->name('dashboard.posts.update');
 
-
+    // إدارة التبرعات
+    Route::controller(DonationController::class)->group(function () {
+        Route::get('donations', 'index')->name('donations.index');
+        Route::get('donations/create', 'create')->name('donations.create');
+        Route::post('donations', 'store')->name('donations.store');
+        Route::get('donations/{donation}', 'show')->name('donations.show');
+        Route::get('donations/{donation}/edit', 'edit')->name('donations.edit');
+        Route::put('donations/{donation}', 'update')->name('donations.update');
+        Route::delete('donations/{donation}', 'destroy')->name('donations.destroy');
+        Route::get('donation-statistics', 'statistics')->name('donations.statistics');
+    });
 
     // Comments routes with only view and delete functionality
     Route::resource('comments', CommentController::class)->only(['index', 'show', 'destroy']);
