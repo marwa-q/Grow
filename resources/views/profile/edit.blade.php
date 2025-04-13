@@ -1,347 +1,536 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile | Charity Volunteering Project</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>User Profile | Grow Community</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome for icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
         :root {
-            --primary-color: #2EBF91;
-            --secondary-color: #1a8e6b;
-            --light-color: #e6f7f1;
-            --dark-color: #0a3d2e;
-            --white-color: #ffffff;
+            --main-green: #2AC289;
+            --dark-green: #1fa575;
+            --light-gray: #f8f9fa;
+            --medium-gray: #e9ecef;
         }
-        
-        body {
-            font-family: 'Open Sans', sans-serif;
+
+
+
+        .user-dropdown {
             background-color: #f8f9fa;
-            color: #333;
+            border-radius: 30px;
+            padding: 5px 15px;
+            cursor: pointer;
         }
-        
-        .charity-navbar {
-            background-color: var(--primary-color);
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-        }
-        
-        .charity-navbar .navbar-brand {
-            color: white;
-            font-weight: bold;
-            font-size: 1.5rem;
-        }
-        
-        .charity-navbar .nav-link {
-            color: white;
-            margin: 0 10px;
-            position: relative;
-        }
-        
-        .charity-navbar .nav-link:hover {
-            color: var(--light-color);
-        }
-        
-        .charity-navbar .nav-link.active::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 100%;
-            height: 3px;
-            background-color: white;
-            border-radius: 3px;
-        }
-        
+
         .profile-header {
-            background-color: var(--primary-color);
+            background-color: var(--main-green);
             color: white;
-            padding: 3rem 0;
-            margin-bottom: 2rem;
+            padding: 3rem 0 6rem;
             position: relative;
-            overflow: hidden;
         }
-        
-        .profile-header::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, rgba(26, 142, 107, 0.8) 0%, rgba(46, 191, 145, 0.4) 100%);
+
+        .profile-container {
+            margin-top: -80px;
         }
-        
-        .profile-header .container {
-            position: relative;
-            z-index: 2;
+
+        .profile-card {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-bottom: 30px;
         }
-        
-        .profile-avatar {
+
+        .profile-picture {
             width: 150px;
             height: 150px;
             border-radius: 50%;
-            border: 5px solid var(--white-color);
-            object-fit: cover;
+            border: 5px solid white;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-        }
-        
-        .profile-card {
-            background-color: var(--white-color);
-            border-radius: 15px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-            padding: 2rem;
-            margin-bottom: 2rem;
-            transition: transform 0.3s ease;
-        }
-        
-        .profile-card:hover {
-            transform: translateY(-5px);
-        }
-        
-        .card-header-custom {
-            background-color: var(--light-color);
-            border-bottom: 3px solid var(--primary-color);
-            color: var(--dark-color);
-            font-weight: bold;
-            border-radius: 10px 10px 0 0;
-            padding: 1rem;
-        }
-        
-        .btn-custom {
-            background-color: var(--primary-color);
-            color: var(--white-color);
-            border: none;
-            border-radius: 5px;
-            padding: 0.5rem 1.5rem;
-            font-weight: bold;
-            transition: all 0.3s ease;
-        }
-        
-        .btn-custom:hover {
-            background-color: var(--secondary-color);
-            color: var(--white-color);
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(46, 191, 145, 0.3);
-        }
-        
-        .btn-outline-custom {
-            border: 2px solid var(--primary-color);
-            color: var(--primary-color);
-            background-color: transparent;
-            border-radius: 5px;
-            padding: 0.5rem 1.5rem;
-            font-weight: bold;
-            transition: all 0.3s ease;
-        }
-        
-        .btn-outline-custom:hover {
-            background-color: var(--primary-color);
-            color: var(--white-color);
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(46, 191, 145, 0.3);
-        }
-        
-        footer {
-            background-color: var(--dark-color);
-            color: var(--white-color);
-            padding: 2rem 0;
-        }
-        
-        .social-icons a {
-            color: var(--white-color);
-            margin-right: 1rem;
-            font-size: 1.5rem;
-            transition: all 0.3s ease;
-        }
-        
-        .social-icons a:hover {
-            color: var(--primary-color);
-            transform: translateY(-3px);
+            margin-top: -75px;
+            margin-bottom: 15px;
+            object-fit: cover;
         }
 
-        .badge-custom {
-            background-color: var(--primary-color);
-            color: var(--white-color);
-            border-radius: 20px;
-            padding: 0.5rem 1rem;
-            font-size: 0.8rem;
-            margin-right: 0.5rem;
-            margin-bottom: 0.5rem;
-            display: inline-block;
+        .profile-tabs .nav-link {
+            color: #555;
+            font-weight: 500;
+            padding: 15px 20px;
+            border: none;
+            border-bottom: 2px solid transparent;
+        }
+
+        .profile-tabs .nav-link.active {
+            color: var(--main-green);
+            border-bottom: 2px solid var(--main-green);
+            background-color: transparent;
+        }
+
+        .activity-item {
+            border-left: 3px solid var(--main-green);
+            padding-left: 15px;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .activity-date {
+            color: #777;
+            font-size: 0.85rem;
+        }
+
+        .badge-green {
+            background-color: var(--main-green);
+            color: white;
+        }
+
+        .profile-stat {
+            text-align: center;
+            padding: 15px 0;
+        }
+
+        .profile-stat h3 {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: var(--main-green);
+        }
+
+        .profile-stat p {
+            font-size: 0.9rem;
+            color: #777;
+            margin-bottom: 0;
+        }
+
+        .btn-green {
+            background-color: var(--main-green);
+            color: white;
+            border: none;
+        }
+
+        .btn-green:hover {
+            background-color: var(--dark-green);
+            color: white;
+        }
+
+        .footer {
+            background-color: #333;
+            color: white;
+            padding: 2rem 0;
+            margin-top: 3rem;
         }
     </style>
 </head>
-<body>
-    <!-- Navigation Bar -->
- @include('layouts.navigation');
 
-    <!-- Profile Header -->
-    <header class="profile-header">
-        <div class="container text-center">
-            <img src="{{ $user->profile_image ?? 'https://via.placeholder.com/150' }}" alt="User Profile Image" class="profile-avatar mb-3">
-            <h1>{{ $user->name }}</h1>
-            <p class="lead">{{ $user->bio ?? 'Active volunteer serving the community' }}</p>
-            <div class="d-flex justify-content-center gap-2 mt-3">
-                <a href="{{ route('profile.edit') }}" class="btn btn-light px-4"><i class="fas fa-edit me-2"></i> Edit Profile</a>
-                <button class="btn btn-outline-light px-4"><i class="fas fa-share-alt me-2"></i> Share</button>
+<body>
+
+    @include('layouts.navigation')
+
+    <div class="w-100">
+        <h2 class="text-center mt-4">My Profile</h2>
+    </div>
+    <!-- Profile Content -->
+    <div class="my-5 container profile-container">
+
+        <!-- Flash Messages -->
+        <div class="row">
+            <div class="col-12">
+                @if(session('success'))
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        {{ session('success') }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                @endif
+
+                @if(session('error'))
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        {{ session('error') }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                @endif
+
+                @if($errors->any())
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <ul class="mb-0">
+                            @foreach($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                @endif
             </div>
         </div>
-    </header>
-
-    <!-- Main Content -->
-    <div class="container">
+        <!-- End Flash Messages -->
         <div class="row">
-            <!-- Left Column -->
-            <div class="col-lg-4 mb-4">
-                <!-- About Me -->
-                <div class="profile-card">
-                    <h5 class="card-header-custom mb-3"><i class="fas fa-user me-2"></i> About Me</h5>
-                    <p>{{ $user->about ?? 'A passionate volunteer dedicated to serving the community and contributing to building a better future. I believe in the importance of volunteer work and always strive to participate in initiatives that make a positive impact on the lives of others.' }}</p>
-                    
-                    <div class="mt-4">
-                        <div class="d-flex align-items-center mb-3">
-                            <i class="fas fa-map-marker-alt text-primary me-2"></i>
-                            <div>
-                                <small class="text-muted">City</small>
-                                <p class="mb-0">{{ $user->city ?? 'New York' }}</p>
-                            </div>
+            <!-- Left Column - User Info -->
+            <div class="col-lg-4 ">
+
+                <div class="profile-card mb-4">
+                    <div class="card-body text-center">
+                        <div class="mb-3">
+                            {!! getProfileImage($user) !!}
                         </div>
-                        <div class="d-flex align-items-center mb-3">
-                            <i class="fas fa-phone text-primary me-2"></i>
-                            <div>
-                                <small class="text-muted">Phone</small>
-                                <p class="mb-0">{{ $user->phone ?? '+1 (555) 123-4567' }}</p>
-                            </div>
-                        </div>
-                        <div class="d-flex align-items-center mb-3">
-                            <i class="fas fa-envelope text-primary me-2"></i>
-                            <div>
-                                <small class="text-muted">Email</small>
-                                <p class="mb-0">{{ $user->email }}</p>
-                            </div>
-                        </div>
-                        <div class="d-flex align-items-center">
-                            <i class="fas fa-calendar-alt text-primary me-2"></i>
-                            <div>
-                                <small class="text-muted">Joined Date</small>
-                                <p class="mb-0">{{ $user->created_at ? $user->created_at->format('Y/m/d') : '2023/01/15' }}</p>
-                            </div>
-                        </div>
+                        @if($user->profile_image)
+                            <form action="{{ route('profile.remove-photo') }}" method="POST" class="mb-3">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-outline-danger btn-sm">
+                                    <i class="fas fa-trash-alt me-1"></i> Remove Photo
+                                </button>
+                            </form>
+                        @endif
+                        <h4 class="mb-1">{{ $user->first_name }} {{ $user->last_name }}</h4>
+                        <p class="text-muted">
+                            <i class="bi bi-geo-alt-fill"></i> {{ $user->bio ?? 'No Bio Added' }}
+                        </p>
+                        <span class="badge bg-secondary">{{ $user->role }}</span>
                     </div>
                 </div>
-                
-                <!-- Skills and Interests -->
+
+                <!-- User Stats -->
                 <div class="profile-card">
-                    <h5 class="card-header-custom mb-3"><i class="fas fa-lightbulb me-2"></i> Skills & Interests</h5>
-                    
-                    <div>
-                        @if(isset($user->skills) && is_array($user->skills))
-                            @foreach($user->skills as $skill)
-                                <span class="badge-custom">{{ $skill }}</span>
-                            @endforeach
-                        @else
-                            <span class="badge-custom">Project Management</span>
-                            <span class="badge-custom">Organization</span>
-                            <span class="badge-custom">Social Communication</span>
-                            <span class="badge-custom">Fundraising</span>
-                            <span class="badge-custom">Community Service</span>
-                        @endif
+                    <h5 class="mb-3 text-center">Activity Summary</h5>
+                    <div class="row row-cols-2 row-cols-md-4 g-3">
+                        <div class="col text-center profile-stat">
+                            <h3 class="text-success">{{ $activityCount ?? 0 }}</h3>
+                            <p>Activities</p>
+                        </div>
+                        <div class="col text-center profile-stat">
+                            <h3 class="text-success">{{ $postCount ?? 0}}</h3>
+                            <p>Posts</p>
+                        </div>
+                        <div class="col text-center profile-stat">
+                            <h3 class="text-success">{{ $likedPostsCount ?? 0}}</h3>
+                            <p>Liked Posts</p>
+                        </div>
+                        <div class="col text-center profile-stat">
+                            <h3 class="text-success">{{ $commentsCount ?? 0}}</h3>
+                            <p>Comments</p>
+                        </div>
+                    </div>
+                </div>  
+
+                <!-- Contact Info -->
+                <div class="profile-card">
+                    <h5 class="mb-3">Contact Information</h5>
+                    <div class="mb-2">
+                        <i class="fas fa-envelope me-2 text-muted"></i>{{ $user->email }}
+                        <a href="#" class="ps-5" data-bs-toggle="modal" data-bs-target="#emailChangeModal">Change
+                            Email</a>
+                    </div>
+                    <div class="mb-2">
+                        <i class="fas fa-phone me-2 text-muted"></i>
+                        <span>{{ $user->phone ?? '+962 7x xxx xxxx' }}</span>
                     </div>
                 </div>
             </div>
-            
-            <!-- Right Column -->
-            <div class="col-lg-8 mb-4">
-                <!-- Personal Information -->
-                <div class="profile-card">
-                    <h5 class="card-header-custom mb-3"><i class="fas fa-info-circle me-2"></i> Personal Information</h5>
-                    
-                    <div class="row">
-                        <div class="col-md-6 mb-3">
-                            <h6 class="text-muted">Full Name</h6>
-                            <p>{{ $user->name }}</p>
+
+            <!-- Email Change Modal using Bootstrap 5 -->
+            <div class="modal fade" id="emailChangeModal" tabindex="-1" aria-labelledby="emailChangeModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="emailChangeModalLabel">Change Email Address</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                        <div class="col-md-6 mb-3">
-                            <h6 class="text-muted">Email</h6>
-                            <p>{{ $user->email }}</p>
-                        </div>
-                        <div class="col-md-6 mb-3">
-                            <h6 class="text-muted">Phone</h6>
-                            <p>{{ $user->phone ?? 'Not provided' }}</p>
-                        </div>
-                        <div class="col-md-6 mb-3">
-                            <h6 class="text-muted">Date of Birth</h6>
-                            <p>{{ $user->date_of_birth ?? 'Not provided' }}</p>
-                        </div>
-                        <div class="col-md-6 mb-3">
-                            <h6 class="text-muted">Gender</h6>
-                            <p>{{ $user->gender ?? 'Not provided' }}</p>
-                        </div>
-                        <div class="col-md-6 mb-3">
-                            <h6 class="text-muted">Address</h6>
-                            <p>{{ $user->address ?? 'Not provided' }}</p>
-                        </div>
-                        <div class="col-md-6 mb-3">
-                            <h6 class="text-muted">City</h6>
-                            <p>{{ $user->city ?? 'Not provided' }}</p>
-                        </div>
-                        <div class="col-md-6 mb-3">
-                            <h6 class="text-muted">Country</h6>
-                            <p>{{ $user->country ?? 'Not provided' }}</p>
-                        </div>
+                        <form action="{{ route('profile.update-email') }}" method="POST" id="emailChangeForm">
+                            @csrf
+                            <div class="modal-body">
+                                <p>Current Email: <span class="fw-bold">{{ $user->email }}</span></p>
+
+                                <div class="mb-3">
+                                    <label for="password" class="form-label">Enter Password to Confirm</label>
+                                    <input type="password" class="form-control" id="password" name="password" required>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="new_email" class="form-label">New Email Address</label>
+                                    <input type="email" class="form-control" id="new_email" name="new_email" required>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                <button type="submit" class="btn btn-success" id="updateEmailBtn">Update Email</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
-                
-                <!-- Additional Information -->
-                <div class="profile-card">
-                    <h5 class="card-header-custom mb-3"><i class="fas fa-plus-circle me-2"></i> Additional Information</h5>
-                    
-                    <div class="row">
-                        <div class="col-md-6 mb-3">
-                            <h6 class="text-muted">Occupation</h6>
-                            <p>{{ $user->occupation ?? 'Not provided' }}</p>
+            </div>
+
+            <script>
+                // Wait for the document to be fully loaded
+                document.addEventListener('DOMContentLoaded', function () {
+                    // Log for debugging
+                    console.log('DOM fully loaded');
+
+                    // Function to auto-dismiss alerts after 5 seconds
+                    function setupAutoDismissAlerts() {
+                        const alerts = document.querySelectorAll('.alert');
+                        alerts.forEach(alert => {
+                            setTimeout(() => {
+                                // Create a bootstrap alert instance and hide it
+                                const bsAlert = new bootstrap.Alert(alert);
+                                bsAlert.close();
+                            }, 5000); // 5000 milliseconds = 5 seconds
+                        });
+                    }
+
+                    // Call the function for any alerts that exist when page loads
+                    setupAutoDismissAlerts();
+
+                    // Get the email change form
+                    const emailChangeForm = document.getElementById('emailChangeForm');
+
+                    if (emailChangeForm) {
+                        console.log('Email change form found');
+
+                        // Add submit event listener to the form
+                        emailChangeForm.addEventListener('submit', function (e) {
+                            // Prevent the default form submission
+                            e.preventDefault();
+                            console.log('Form submission intercepted');
+
+                            // Create formData object
+                            const formData = new FormData(this);
+
+                            // Create an AJAX request
+                            fetch(this.action, {
+                                method: 'POST',
+                                body: formData,
+                                headers: {
+                                    'X-Requested-With': 'XMLHttpRequest'
+                                },
+                                credentials: 'same-origin'
+                            })
+                                .then(response => {
+                                    console.log('Response received');
+                                    return response.json();
+                                })
+                                .then(data => {
+                                    console.log('Data processed:', data);
+
+                                    // Close the modal
+                                    const modalElement = document.getElementById('emailChangeModal');
+                                    const modal = bootstrap.Modal.getInstance(modalElement);
+                                    modal.hide();
+
+                                    // Create flash message
+                                    let alertHtml = '';
+
+                                    if (data.success) {
+                                        alertHtml = `
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            ${data.success}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                         </div>
-                        <div class="col-md-6 mb-3">
-                            <h6 class="text-muted">Organization</h6>
-                            <p>{{ $user->organization ?? 'Not provided' }}</p>
+                    `;
+
+                                        // Update the displayed email
+                                        const emailDisplay = document.querySelector('.fas.fa-envelope.me-2.text-muted').nextSibling;
+                                        if (emailDisplay) {
+                                            emailDisplay.textContent = data.email;
+                                        }
+                                    } else if (data.error) {
+                                        alertHtml = `
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            ${data.error}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                         </div>
-                        <div class="col-md-6 mb-3">
-                            <h6 class="text-muted">Education</h6>
-                            <p>{{ $user->education ?? 'Not provided' }}</p>
-                        </div>
-                        <div class="col-md-6 mb-3">
-                            <h6 class="text-muted">Languages</h6>
-                            <p>{{ $user->languages ?? 'Not provided' }}</p>
-                        </div>
+                    `;
+                                    }
+
+                                    // Find the flash message container and insert the message
+                                    const flashContainer = document.querySelector('.row:first-child .col-12');
+                                    if (flashContainer) {
+                                        flashContainer.innerHTML = alertHtml;
+                                        // Scroll to top to show the message
+                                        window.scrollTo(0, 0);
+
+                                        // Setup auto-dismiss for the newly added alert
+                                        setupAutoDismissAlerts();
+                                    }
+                                })
+                                .catch(error => {
+                                    console.error('Error:', error);
+                                    // Handle error
+                                    const modalElement = document.getElementById('emailChangeModal');
+                                    const modal = bootstrap.Modal.getInstance(modalElement);
+                                    modal.hide();
+
+                                    // Create error flash message
+                                    const alertHtml = `
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        An error occurred while processing your request. Please try again.
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>
-                    
-                    <div class="mt-3">
-                        <h6 class="text-muted">Why I Volunteer</h6>
-                        <p>{{ $user->volunteer_reason ?? 'I believe in giving back to the community and making a positive impact on society. Through volunteering, I aim to contribute my skills and time to meaningful causes that help those in need.' }}</p>
-                    </div>
-                </div>
-                
-                <!-- Emergency Contact -->
-                <div class="profile-card">
-                    <h5 class="card-header-custom mb-3"><i class="fas fa-ambulance me-2"></i> Emergency Contact</h5>
-                    
-                    <div class="row">
-                        <div class="col-md-6 mb-3">
-                            <h6 class="text-muted">Contact Name</h6>
-                            <p>{{ $user->emergency_contact_name ?? 'Not provided' }}</p>
+                `;
+
+                                    const flashContainer = document.querySelector('.row:first-child .col-12');
+                                    if (flashContainer) {
+                                        flashContainer.innerHTML = alertHtml;
+                                        window.scrollTo(0, 0);
+
+                                        // Setup auto-dismiss for the newly added alert
+                                        setupAutoDismissAlerts();
+                                    }
+                                });
+                        });
+                    } else {
+                        console.error('Email change form not found');
+                    }
+                });
+            </script>
+
+
+            <!-- Right Column - Tabs and Content -->
+            <div class="col-lg-8">
+                <div class="profile-card p-0 overflow-hidden">
+                    <!-- Tabs -->
+                    <ul class="nav nav-tabs profile-tabs" id="profileTabs" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link active" id="activities-tab" data-bs-toggle="tab"
+                                data-bs-target="#activities" type="button" role="tab">My Activities</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="posts-tab" data-bs-toggle="tab" data-bs-target="#posts"
+                                type="button" role="tab">My Posts</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="settings-tab" data-bs-toggle="tab" data-bs-target="#settings"
+                                type="button" role="tab">Account Settings</button>
+                        </li>
+                    </ul>
+
+                    <!-- Tab Contents -->
+                    <div class="tab-content p-4" id="profileTabsContent">
+
+                        <!-- Activities Tab -->
+                        <div class="tab-pane fade show active" id="activities" role="tabpanel">
+                            <h4 class="mb-4">Recent Activities</h4>
+
+                            @if(isset($activities) && count($activities) > 0)
+                                @foreach($activities as $activity)
+                                    <div class="activity-item border-start border-success border-4 ps-3 mb-4">
+                                        <!-- Activity content -->
+                                    </div>
+                                @endforeach
+                            @else
+                                <div class="alert alert-success">
+                                    No activities found.
+                                </div>
+                            @endif
+
+                            <div class="text-center mt-4">
+                                <button class="btn btn-outline-secondary">View All Activities</button>
+                            </div>
                         </div>
-                        <div class="col-md-6 mb-3">
-                            <h6 class="text-muted">Relationship</h6>
-                            <p>{{ $user->emergency_contact_relationship ?? 'Not provided' }}</p>
+
+                        <!-- Posts Tab -->
+                        <div class="tab-pane fade" id="posts" role="tabpanel">
+                            <h4 class="mb-4">My Posts</h4>
+
+                            @if(isset($posts) && count($posts) > 0)
+                                @foreach($posts as $post)
+                                    <div class="card mb-3">
+                                        <!-- post content -->
+                                    </div>
+                                @endforeach
+                            @else
+                                <div class="alert alert-success">
+                                    No posts found. Start sharing your experiences!
+                                </div>
+                            @endif
+
+                            <div class="text-center mt-4">
+                                <button class="btn btn-outline-secondary">View All Posts</button>
+                            </div>
                         </div>
-                        <div class="col-md-6 mb-3">
-                            <h6 class="text-muted">Phone</h6>
-                            <p>{{ $user->emergency_contact_phone ?? 'Not provided' }}</p>
-                        </div>
-                        <div class="col-md-6 mb-3">
-                            <h6 class="text-muted">Email</h6>
-                            <p>{{ $user->emergency_contact_email ?? 'Not provided' }}</p>
+
+                        <!-- Settings Tab -->
+                        <div class="tab-pane fade" id="settings" role="tabpanel">
+                            <h4 class="mb-4">Account Settings</h4>
+
+                            <form action="{{ route('profile.update') }}" method="POST" enctype="multipart/form-data">
+                                @csrf
+                                @method('PUT')
+
+                                <div class="row mb-3">
+                                    <div class="col-md-6">
+                                        <label for="first_name" class="form-label">First Name</label>
+                                        <input type="text" class="form-control" id="first_name" name="first_name"
+                                            value="{{ $user->first_name }}">
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <label for="last_name" class="form-label">Last Name</label>
+                                        <input type="text" class="form-control" id="last_name" name="last_name"
+                                            value="{{ $user->last_name }}">
+                                    </div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="bio" class="form-label">Bio</label>
+                                    <textarea class="form-control" id="bio" name="bio" rows="3"
+                                        placeholder="Tell us about yourself">{{ $user->bio }}</textarea>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="phone" class="form-label">Phone Number</label>
+                                    <input type="tel" class="form-control" id="phone" name="phone"
+                                        value="{{ $user->phone }}" placeholder="Enter phone number">
+                                </div>
+
+                                <!-- Hidden role field to preserve current role -->
+                                <input type="hidden" name="role" value="{{ $user->role }}">
+
+                                <div class="mb-3">
+                                    <label for="profile_image" class="form-label">Profile Image</label>
+                                    <input class="form-control" type="file" id="profile_image" name="profile_image">
+                                    @if($user->profile_image)
+                                        <div class="mt-2">
+                                            <p class="form-text">Current image:</p>
+                                            <img src="{{ asset($user->profile_image) }}" alt="Current Profile"
+                                                class="rounded-circle"
+                                                style="width: 100px; height: 100px; object-fit: cover;">
+                                        </div>
+                                    @else
+                                        <div class="form-text">No profile image uploaded</div>
+                                    @endif
+                                </div>
+
+
+
+                                <hr class="my-4">
+                                <h5>Change Password</h5>
+
+                                <div class="mb-3">
+                                    <label for="current_password" class="form-label">Current Password</label>
+                                    <input type="password" class="form-control" id="current_password"
+                                        name="current_password" placeholder="Enter current password">
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="password" class="form-label">New Password</label>
+                                    <input type="password" class="form-control" id="password" name="password"
+                                        placeholder="Enter new password">
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="password_confirmation" class="form-label">Confirm New Password</label>
+                                    <input type="password" class="form-control" id="password_confirmation"
+                                        name="password_confirmation" placeholder="Confirm new password">
+                                </div>
+
+                                <div class="mt-4">
+                                    <button type="submit" class="btn btn-green">Save Changes</button>
+                                    <button type="button" class="btn btn-outline-secondary ms-2">Cancel</button>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -349,8 +538,53 @@
         </div>
     </div>
 
-    <!-- Footer -->
-   @include('layouts.footer');
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    @include('layouts.footer')
+
+
+    <div id="image-preview" class="mt-2"></div>
+
+    <script>
+        document.getElementById('profile_image').onchange = function (event) {
+            var reader = new FileReader();
+            reader.onload = function () {
+                var output = document.createElement('img');
+                output.src = reader.result;
+                output.classList.add('rounded-circle', 'mt-2');
+                output.style.width = '100px';
+                output.style.height = '100px';
+                output.style.objectFit = 'cover';
+
+                var previewContainer = document.getElementById('image-preview');
+                previewContainer.innerHTML = '<p class="form-text">New image preview:</p>';
+                previewContainer.appendChild(output);
+            };
+            reader.readAsDataURL(event.target.files[0]);
+        };
+    </script>
+
+    <script>
+        // Auto-dismiss alerts after 5 seconds
+        document.addEventListener('DOMContentLoaded', function () {
+            setTimeout(function () {
+                let alerts = document.querySelectorAll('.alert');
+                alerts.forEach(function (alert) {
+                    // Check if Bootstrap is loaded
+                    if (typeof bootstrap !== 'undefined') {
+                        let bsAlert = new bootstrap.Alert(alert);
+                        bsAlert.close();
+                    } else {
+                        // Fallback if Bootstrap JS is not loaded
+                        alert.style.opacity = '0';
+                        alert.style.transition = 'opacity 0.5s';
+                        setTimeout(function () {
+                            alert.style.display = 'none';
+                        }, 500);
+                    }
+                });
+            }, 5000);
+        });
+    </script>
+
 </body>
+
 </html>

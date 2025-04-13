@@ -66,6 +66,9 @@
             <div class="signup-link">
                 Don't have an account? <a href="{{ route('register') }}">Sign up now</a>
             </div>
+            <div class="signup-link">
+                Forgot Your Password? <a href="{{ route('password.request') }}">Reset Password</a>
+            </div>
         </div>
     </div>
 

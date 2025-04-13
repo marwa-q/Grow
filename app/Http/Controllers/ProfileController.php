@@ -2,7 +2,12 @@
 
 namespace App\Http\Controllers;
 
+
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 use App\Models\User;
+use App\Models\Activity;
+use App\Models\Post;
 use App\Http\Requests\ProfileUpdateRequest;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
@@ -24,6 +29,47 @@ class ProfileController extends Controller
         return view('profile', compact('user'));
     }
 
+    public function show($id = null)
+    {
+        // Get the user (either the requested user or the authenticated user)
+        $user = $id ? User::findOrFail($id) : auth()->user();
+
+        // Get activity count
+        $activityCount = Activity::where('user_id', $user->id)->count();
+
+        // Get posts count
+        $postCount = Post::where('user_id', $user->id)->count();
+
+        return view('profile.show', compact(
+            'user',
+            'activityCount',
+            'totalHours',
+            'postCount'
+        ));
+    }
+
+    public function profile()
+    {
+        $user = auth()->user();
+
+        // Get recent activities for the user, limit to 3 for the profile page
+        $activities = Activity::where('user_id', $user->id)
+            ->orderBy('date', 'desc')
+            ->take(3)
+            ->get();
+
+        // Get posts with comment counts
+        $posts = Post::where('user_id', $user->id)
+            ->withCount(['likes', 'comments'])
+            ->orderBy('created_at', 'desc')
+            ->take(3)
+            ->get();
+
+        return view('profile.show', compact('user', 'activities', 'posts'));
+    }
+
+
+
     /**
      * Show the profile edit form.
      *
@@ -44,67 +90,112 @@ class ProfileController extends Controller
      */
     public function update(Request $request)
     {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users,email,' . Auth::id(),
-            'bio' => 'nullable|string|max:255',
-            'about' => 'nullable|string',
-            'city' => 'nullable|string|max:100',
+        $validated = $request->validate([
+            'first_name' => 'required|string|max:255',
+            'last_name' => 'required|string|max:255',
             'phone' => 'nullable|string|max:20',
-            'occupation' => 'nullable|string|max:100',
-            'organization' => 'nullable|string|max:100',
-            'education' => 'nullable|string|max:100',
-            'languages' => 'nullable|string|max:100',
-            'volunteer_reason' => 'nullable|string',
-            'emergency_contact_name' => 'nullable|string|max:100',
-            'emergency_contact_relationship' => 'nullable|string|max:50',
-            'emergency_contact_phone' => 'nullable|string|max:20',
-            'emergency_contact_email' => 'nullable|string|email|max:100',
+            'bio' => 'nullable|string|max:1000', // Add this line
             'profile_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'current_password' => 'nullable|required_with:password',
+            'password' => 'nullable|string|min:8|confirmed',
         ]);
-
         $user = Auth::user();
+        $updateMessage = 'Profile updated successfully';
+        $hasProfileImageUpdate = false;
+        $hasPasswordUpdate = false;
 
         // Handle profile image upload if provided
         if ($request->hasFile('profile_image')) {
             $imageName = time() . '.' . $request->profile_image->extension();
             $request->profile_image->move(public_path('images/profiles'), $imageName);
             $user->profile_image = 'images/profiles/' . $imageName;
+            $hasProfileImageUpdate = true;
         }
 
         // Update user data
-        $user->name = $request->name;
-        $user->email = $request->email;
-        $user->bio = $request->bio;
-        $user->about = $request->about;
-        $user->city = $request->city;
+        $user->first_name = $request->first_name;
+        $user->last_name = $request->last_name;
         $user->phone = $request->phone;
-        $user->occupation = $request->occupation;
-        $user->organization = $request->organization;
-        $user->education = $request->education;
-        $user->languages = $request->languages;
-        $user->volunteer_reason = $request->volunteer_reason;
-        $user->emergency_contact_name = $request->emergency_contact_name;
-        $user->emergency_contact_relationship = $request->emergency_contact_relationship;
-        $user->emergency_contact_phone = $request->emergency_contact_phone;
-        $user->emergency_contact_email = $request->emergency_contact_email;
+        $user->bio = $request->bio; // Add this line
 
-        // Check if email was changed and reset verification timestamp
-        if ($user->isDirty('email')) {
-            $user->email_verified_at = null;
-        }
-
+        // Save the updated user data
         $user->save();
 
-        return redirect()->route('profile.index')->with('success', 'Profile updated successfully');
+        // Check if password update was requested
+        if ($request->filled('password')) {
+            // Verify the current password
+            if (!Hash::check($request->current_password, $user->password)) {
+                return redirect()->back()->with('error', 'Current password is incorrect');
+            }
+
+            // Update the password
+            $user->password = Hash::make($request->password);
+            $user->save();
+            $hasPasswordUpdate = true;
+        }
+
+        // Build success message
+        if ($hasProfileImageUpdate && $hasPasswordUpdate) {
+            $updateMessage = 'Profile and password updated successfully';
+        } elseif ($hasProfileImageUpdate) {
+            $updateMessage = 'Profile updated successfully';
+        } elseif ($hasPasswordUpdate) {
+            $updateMessage = 'Password updated successfully';
+        }
+
+        return redirect()->route('profile.edit')->with('success', $updateMessage);
     }
 
-    /**
-     * Update the user's profile information with ProfileUpdateRequest.
-     *
-     * @param  \App\Http\Requests\ProfileUpdateRequest  $request
-     * @return \Illuminate\Http\RedirectResponse
-     */
+
+
+    // ProfileController.php
+    public function updateEmail(Request $request)
+    {
+        $request->validate([
+            'password' => 'required',
+            'new_email' => 'required|email|unique:users,email,' . auth()->id(),
+        ]);
+
+        $user = auth()->user();
+
+        // Verify password
+        if (!Hash::check($request->password, $user->password)) {
+            return response()->json([
+                'error' => 'The provided password does not match your current password.'
+            ]);
+        }
+
+        // Update email
+        $user->email = $request->new_email;
+        $user->save();
+
+        if ($request->ajax()) {
+            return response()->json([
+                'success' => 'Email address updated successfully!',
+                'email' => $user->email
+            ]);
+        }
+
+        return redirect()->back()->with('success', 'Email address updated successfully!');
+    }
+
+
+    public function removePhoto()
+    {
+        $user = Auth::user();
+
+        // Delete the actual file if it exists
+        if ($user->profile_image && file_exists(public_path($user->profile_image))) {
+            unlink(public_path($user->profile_image));
+        }
+
+        // Set the profile_image field to null
+        $user->profile_image = null;
+        $user->save();
+
+        return redirect()->back()->with('success', 'Profile photo removed successfully');
+    }
+
     public function updateWithRequest(ProfileUpdateRequest $request): RedirectResponse
     {
         $request->user()->fill($request->validated());

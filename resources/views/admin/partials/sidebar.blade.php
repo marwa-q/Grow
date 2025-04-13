@@ -12,31 +12,31 @@
             
             <li class="nav-item">
                 <a class="nav-link text-white d-flex align-items-center" href="{{ route('users.index') }}">
-                    <i class="fas fa-users me-2"></i>User Management
+                    <i class="fas fa-users me-2"></i>User
                 </a>
             </li>
             
             <li class="nav-item">
                 <a class="nav-link text-white d-flex align-items-center" href="{{ route('dashboard.activities.index') }}">
-                    <i class="fas fa-calendar-alt me-2"></i>Activities Management
+                    <i class="fas fa-calendar-alt me-2"></i>Activities
                 </a>
             </li>
             
             <li class="nav-item">
                 <a class="nav-link text-white d-flex align-items-center" href="{{ route('dashboard.posts.index') }}">
-                    <i class="fas fa-file-alt me-2"></i> post Management
+                    <i class="fas fa-file-alt me-2"></i> Posts
                 </a>
             </li>
             
             <li class="nav-item">
                 <a class="nav-link text-white d-flex align-items-center" href="{{ route('comments.index') }}">
-                    <i class="fas fa-comments me-2"></i> Comments management
+                    <i class="fas fa-comments me-2"></i> Comments 
                 </a>
             </li>
             
             <li class="nav-item">
                 <a class="nav-link text-white d-flex align-items-center" href="{{ route('donations.index') }}">
-                    <i class="fas fa-hand-holding-usd me-2"></i> Donation Management
+                    <i class="fas fa-hand-holding-usd me-2"></i> Donation Reports
                 </a>
             </li>
         </ul>

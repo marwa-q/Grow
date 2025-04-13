@@ -1,4 +1,4 @@
-<div class="main-content flex-grow-1 pt-4 ps-4 pe-4">
+<div class="main-content">
           
             <nav class="navbar navbar-expand-lg navbar-light bg-white mb-4 rounded shadow-sm">
                 <div class="container-fluid">
