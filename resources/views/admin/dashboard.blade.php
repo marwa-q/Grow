@@ -14,8 +14,8 @@
                     <h6 class="text-muted mb-1">Total Users</h6>
                     <h2 class="mb-0">{{ number_format($totalUsers) }}</h2>
                     <div class="{{ $userGrowth >= 0 ? 'text-success' : 'text-danger' }} small mt-2">
-                        <i class="bi {{ $userGrowth >= 0 ? 'bi-arrow-up' : 'bi-arrow-down' }}"></i>
-                        {{ abs($userGrowth) }}% from last month
+                        {{-- <i class="bi {{ $userGrowth >= 0 ? 'bi-arrow-up' : 'bi-arrow-down' }}"></i> --}}
+                        {{-- {{ abs($userGrowth) }}% from last month --}}
                     </div>
                 </div>
                 <div class="stat-icon bg-primary-subtle text-primary">
@@ -33,8 +33,8 @@
                     <h6 class="text-muted mb-1">Activities</h6>
                     <h2 class="mb-0">{{ number_format($totalActivities) }}</h2>
                     <div class="{{ $activityGrowth >= 0 ? 'text-success' : 'text-danger' }} small mt-2">
-                        <i class="bi {{ $activityGrowth >= 0 ? 'bi-arrow-up' : 'bi-arrow-down' }}"></i>
-                        {{ abs($activityGrowth) }}% from last month
+                        {{-- <i class="bi {{ $activityGrowth >= 0 ? 'bi-arrow-up' : 'bi-arrow-down' }}"></i> --}}
+                        {{-- {{ abs($activityGrowth) }}% from last month --}}
                     </div>
                 </div>
                 <div class="stat-icon bg-success-subtle text-success">
@@ -52,8 +52,8 @@
                     <h6 class="text-muted mb-1">Posts</h6>
                     <h2 class="mb-0">{{ number_format($totalPosts) }}</h2>
                     <div class="{{ $postGrowth >= 0 ? 'text-success' : 'text-danger' }} small mt-2">
-                        <i class="bi {{ $postGrowth >= 0 ? 'bi-arrow-up' : 'bi-arrow-down' }}"></i>
-                        {{ abs($postGrowth) }}% from last month
+                        {{-- <i class="bi {{ $postGrowth >= 0 ? 'bi-arrow-up' : 'bi-arrow-down' }}"></i> --}}
+                        {{-- {{ abs($postGrowth) }}% from last month --}}
                     </div>
                 </div>
                 <div class="stat-icon bg-info-subtle text-info">
@@ -71,8 +71,8 @@
                     <h6 class="text-muted mb-1">Donations</h6>
                     <h2 class="mb-0">${{ number_format($totalDonations ?? 0) }}</h2>
                     <div class="{{ $donationGrowth >= 0 ? 'text-success' : 'text-danger' }} small mt-2">
-                        <i class="bi {{ $donationGrowth >= 0 ? 'bi-arrow-up' : 'bi-arrow-down' }}"></i>
-                        {{ abs($donationGrowth) }}% from last month
+                        {{-- <i class="bi {{ $donationGrowth >= 0 ? 'bi-arrow-up' : 'bi-arrow-down' }}"></i> --}}
+                        {{-- {{ abs($donationGrowth) }}% from last month --}}
                     </div>
                 </div>
                 <div class="stat-icon bg-warning-subtle text-warning">
