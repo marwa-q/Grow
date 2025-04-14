@@ -36,7 +36,7 @@
                             @if($activity->image)
                                 <img src="{{ asset('storage/'.$activity->image) }}" width="50" height="50" class="rounded" style="object-fit: cover;">
                             @else
-                                <img src="{{ asset('images/default-activity.jpg') }}" width="50" height="50" class="rounded">
+                                <img src="{{ asset('https://img.freepik.com/premium-vector/default-image-icon-vector-missing-picture-page-website-design-mobile-app-no-photo-available_87543-11093.jpg') }}" width="50" height="50" class="rounded">
                             @endif
                         </td>
                         <td>

@@ -1,26 +1,88 @@
+<!-- resources/views/admin/layout.blade.php -->
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="ltr">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    
+    <title>@yield('title', 'Admin Dashboard')</title>
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
-    <title>@yield('title')</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
 
     <style>
         body {
             font-family: 'Tajawal', sans-serif;
             background-color: #f8f9fa;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        /* تحسين مظهر السكرول في الـ sidebar */
+        .custom-scrollbar {
+            overflow-y: auto;
+            max-height: calc(100vh - 180px); /* يتم ضبط هذه القيمة حسب حجم الهيدر والفوتر في الـ sidebar */
+        }
+
+        /* تخصيص شكل السكرول بار */
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        /* إخفاء السكرول بار عندما لا يتم استخدامه */
+        .custom-scrollbar {
+            -ms-overflow-style: none; /* IE و Edge */
+            scrollbar-width: none; /* Firefox */
+        }
+
+        .custom-scrollbar::-webkit-scrollbar {
+            display: none; /* لـ Safari و Chrome */
+        }
+
+        /* عند تمرير الماوس فوق المنطقة نظهر السكرول بار */
+        .sidebar:hover .custom-scrollbar::-webkit-scrollbar {
+            display: block;
+        }
+
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100vh;
+            width: 250px;
+            z-index: 100;
+            transition: all 0.3s;
+            overflow: hidden;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
         }
 
         .main-content {
-           
+            margin-left: 250px;
             transition: all 0.3s;
+            min-height: 100vh;
+            width: calc(100% - 250px);
+            position: relative;
+            padding: 20px;
         }
 
         @media (max-width: 768px) {
@@ -34,42 +96,59 @@
 
             .main-content {
                 margin-left: 0;
+                width: 100%;
             }
         }
 
         .nav-link {
             padding: 0.8rem 1rem;
-            border-radius: 5px;
+            border-radius: 8px;
             margin-bottom: 5px;
             transition: all 0.2s;
         }
 
         .nav-link:hover {
-            background-color: rgba(255, 255, 255, 0.2);
+            background-color: rgba(255, 255, 255, 0.1);
             transform: translateX(5px);
         }
 
-        .card-dashboard {
+        /* تحسين مظهر القوائم النشطة والمؤشرات */
+        .sidebar .nav-link {
+            position: relative;
+            border-radius: 8px;
             transition: all 0.3s;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-            height: 100%;
         }
 
-        .card-dashboard:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        .sidebar .nav-link.active {
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
 
-        .stat-icon {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
+        .sidebar .nav-link.active::before {
+            content: '';
+            position: absolute;
+            left: -10px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 4px;
+            height: 60%;
+            background-color: #fff;
+            border-radius: 0 4px 4px 0;
+        }
+
+        /* تحسين أيقونات القائمة */
+        .icon-box {
+            transition: all 0.3s;
+            width: 36px;
+            height: 36px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 24px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-link:hover .icon-box {
+            transform: scale(1.1);
         }
 
         .toggle-sidebar {
@@ -81,28 +160,153 @@
                 display: block;
             }
         }
+
+        /* تحسين مظهر البطاقات في الداشبورد */
+        .stat-card {
+            border-radius: 12px;
+            border: none;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s;
+            overflow: hidden;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .stat-icon {
+            width: 55px;
+            height: 55px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 12px;
+            font-size: 1.5rem;
+        }
+
+        /* تحسين مظهر الجداول */
+        .table-dashboard {
+            border-collapse: separate;
+            border-spacing: 0;
+        }
+
+        .table-dashboard th {
+            font-weight: 600;
+            background-color: #f8f9fa;
+            border-bottom: 2px solid #dee2e6;
+        }
+
+        .table-dashboard td {
+            vertical-align: middle;
+        }
+
+        .table-dashboard tr:hover {
+            background-color: rgba(0, 123, 255, 0.03);
+        }
+
+        /* أزرار الإجراءات في الجداول */
+        .action-buttons .btn {
+            width: 32px;
+            height: 32px;
+            padding: 0;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 6px;
+            margin: 0 2px;
+        }
+        
+        /* تحسين خلفية الألوان الخفيفة لتوافق Bootstrap 5.3 */
+        .bg-primary-subtle {
+            background-color: rgba(13, 110, 253, 0.1) !important;
+        }
+        
+        .bg-success-subtle {
+            background-color: rgba(25, 135, 84, 0.1) !important;
+        }
+        
+        .bg-info-subtle {
+            background-color: rgba(13, 202, 240, 0.1) !important;
+        }
+        
+        .bg-warning-subtle {
+            background-color: rgba(255, 193, 7, 0.1) !important;
+        }
+        
+        .bg-danger-subtle {
+            background-color: rgba(220, 53, 69, 0.1) !important;
+        }
+        
+        .bg-secondary-subtle {
+            background-color: rgba(108, 117, 125, 0.1) !important;
+        }
+        
+        /* Fix for table responsiveness */
+        .table-responsive {
+            overflow-x: auto;
+        }
     </style>
 </head>
 
 <body>
     <div class="d-flex">
-        <!-- Include the Sidebar -->
+        <!-- Sidebar -->
         @include('admin.partials.sidebar')
-        <div class="container p-4">
-            <!-- Include the navbar -->
-            @include('admin.partials.adminNavbar')
 
-            <!-- Main Content -->
-            <main class="mb-4">
-                @yield('content')
-            </main>
+        <!-- Main Content -->
+        <div class="main-content">
+            <nav class="navbar navbar-expand-lg navbar-light bg-white mb-4 rounded shadow-sm">
+                <div class="container-fluid">
+                    <button class="btn btn-dark toggle-sidebar" id="toggleSidebar">
+                        <i class="fas fa-bars"></i>
+                    </button>
+
+                    <h5 class="mb-0 ms-2">@yield('page-title', 'Dashboard')</h5>
+
+                    <div class="ms-auto d-flex align-items-center">
+                        <div class="dropdown">
+                            <button class="btn dropdown-toggle" type="button" id="userDropdown"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                <img src="https://ui-avatars.com/api/?name=Admin+User&background=random"
+                                    class="rounded-circle me-2" width="30" height="30" alt="User Avatar">
+                                Admin User
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                                <li><a class="dropdown-item" href="#"><i class="fas fa-user me-2"></i> Profile</a></li>
+                                <li><a class="dropdown-item" href="#"><i class="fas fa-cog me-2"></i> Settings</a></li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li>
+                                    <form action="{{ route('logout') }}" method="POST">
+                                        @csrf
+                                        <button type="submit" class="dropdown-item">
+                                            <i class="fas fa-sign-out-alt me-2"></i> Logout
+                                        </button>
+                                    </form>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+
+            @yield('content')
         </div>
-
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-        crossorigin="anonymous"></script>
+    <!-- Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        // Mobile sidebar toggle
+        document.getElementById('toggleSidebar').addEventListener('click', function () {
+            document.querySelector('.sidebar').classList.toggle('active');
+        });
+    </script>
+    
+    @yield('scripts')
 </body>
 
 </html>
