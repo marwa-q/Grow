@@ -20,6 +20,10 @@ class AuthServiceProvider extends ServiceProvider
         $this->registerPolicies();
 
         Gate::define('access-dashboard', function (User $user) {
+
+            if (!Auth::user() || !(Auth::user()->role === 'admin' || !Auth::user()->role === 'superadmin')) {
+                redirect()->route('home');
+            }
             return in_array($user->role, ['admin', 'superadmin']);
         });
     }

@@ -8,21 +8,71 @@
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('css/fotter.css') }}">
     <link rel="stylesheet" href="{{ asset('css/about.css') }}">
+    <style>
+        .hero-section {
+          background-color: #2ebf91;
+          height: 300px; /* زاد شوي الارتفاع */
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          text-align: center;
+        }
+      
+        .hero-content {
+          max-width: 800px;
+          padding: 0 20px;
+        }
+      
+        .hero-content h1 {
+          font-size: 28px;
+          margin-bottom: 10px;
+          font-weight: 600;
+        }
+      
+        .hero-content p {
+          font-size: 16px;
+          margin: 0;
+        }
 
 
+        .mission-section {
+    margin-top: 80px; /* نزله شوي لتحت */
+  }
+
+  .mission-card {
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    padding: 25px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+  }
+
+  .mission-card:hover {
+    transform: translateY(-5px);
+  }
+
+  .mission-icon {
+    font-size: 36px;
+    color: #2ebf91;
+    margin-bottom: 15px;
+  }
+      </style>
       
 </head>
 <body>
     @include('layouts.navigation')
     <!-- (Hero Section) -->
-    
-    <div class="hero-section" style="background-color: #2ebf91; background-size: cover; background-repeat: no-repeat; background-position: center;" >
-        <div class="container hero-content" >
-        <h1 class="display-3 fw-bold mb-4">Together we make a difference</h1>
-        <p class="lead mb-5">We work hard and with dedication to help those in need and spread goodness in our community</p>
-        </div>
-    </div>
 
+          
+    <div class="hero-section">
+        <div class="container hero-content">
+          <h1>Together we make a difference</h1>
+          <p>We work hard and with dedication to help those in need and spread goodness in our community</p>
+        </div>
+      </div>
+      
+
+      
     <!-- قسم من نحن -->
     <div class="container">
         <div class="row justify-content-center">
@@ -136,52 +186,141 @@
 <!-- قسم فريق العمل -->
 <div class="container team-section">
     <h2 class="section-title">Our distinguished team</h2>
-        <div class="row">
+    <div class="row">
         @foreach($users as $user)
-        <div class="col-lg-4 col-md-6 mb-4">
-            <div class="team-card">
-                <div class="team-img-container">
-                    <img src="{{ asset('img/' . $user->profile_image) }}" class="team-img" alt="صورة {{ $user->name }}">
-                    <div class="team-overlay">
-                        <div>
-                            <p class="mb-0">{{ $user->bio ?? 'Team Member' }}</p>                        </div>
+            <!-- تصفية الأعضاء الذين دورهم هو "team" فقط -->
+            @if($user->role == 'team')
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="team-card">
+                    <div class="team-img-container">
+                        <!-- عرض الصورة الشخصية -->
+                        <img src="{{ asset('img/' . $user->profile_image) }}" class="team-img" alt="صورة {{ $user->first_name }} {{ $user->last_name }}">
+                        <div class="team-overlay">
+                            <div>
+                                <p class="mb-0">{{ $user->role ?? 'Member' }}</p>
+                            </div>
+                        </div>
+                        <div class="role-badge">{{ $user->role ?? 'Member' }}</div>
                     </div>
-                    <div class="role-badge">{{ $user->role_name ?? 'Member' }}</div>                </div>
-                <div class="card-body">
-                    <h5 class="card-title">{{ $user->name }}</h5>
-                    <p class="text-muted">{{ $user->position }}</p>
-                    @if($user->email)
-                    <p class="mb-0"><i class="fas fa-envelope me-2"></i>{{ $user->email }}</p>
-                    @endif
-                    @if($user->phone)
-                    <p><i class="fas fa-phone me-2"></i>{{ $user->phone }}</p>
-                    @endif
-                    <div class="team-social">
-                        @if($user->facebook_url)
-                        <a href="{{ $user->facebook_url }}"><i class="fab fa-facebook-f"></i></a>
+                    <div class="card-body">
+                        <!-- عرض الاسم الكامل -->
+                        <h5 class="card-title">{{ $user->first_name }} {{ $user->last_name }}</h5>
+                        <!-- عرض البريد الإلكتروني فقط إذا كان موجود -->
+                        @if($user->email)
+                        <p class="mb-0"><i class="fas fa-envelope me-2"></i>{{ $user->email }}</p>
                         @endif
-                        @if($user->twitter_url)
-                        <a href="{{ $user->twitter_url }}"><i class="fab fa-twitter"></i></a>
-                        @endif
-                        @if($user->linkedin_url)
-                        <a href="{{ $user->linkedin_url }}"><i class="fab fa-linkedin-in"></i></a>
-                        @endif
-                        @if($user->instagram_url)
-                        <a href="{{ $user->instagram_url }}"><i class="fab fa-instagram"></i></a>
+                        <!-- عرض رقم الهاتف فقط إذا كان موجود -->
+                        @if($user->phone)
+                        <p><i class="fas fa-phone me-2"></i>{{ $user->phone }}</p>
                         @endif
                     </div>
                 </div>
-                @if($user->join_date)
-                <div class="card-footer text-muted">
-                    Join us: {{ date('Y-m-d', strtotime($user->join_date)) }}                </div>
-                @endif
             </div>
-        </div>
+            @endif
         @endforeach
     </div>
 </div>
+
+
 <!-- Footer -->
-@include('layouts.footer')
+<footer class="footer">
+    <div class="container">
+        <div class="row">
+            <!-- معلومات المؤسسة -->
+            <div class="col-lg-4 mb-5 mb-lg-0">
+                <div class="footer-logo mb-4">
+                    <h3 class="text-white fw-bold mb-3">Charity Site</h3>                    <div class="accent-line"></div>
+                </div>
+                <p class="text-light mb-4">We seek to help those in need and bring about positive change in the lives of individuals and communities through sustainable charitable programs that promote social solidarity.</p>                <div class="footer-social mb-4">
+                    <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>                </div>
+            </div>
+            
+            <!-- روابط سريعة -->
+            <div class="col-lg-2 col-md-4 mb-5 mb-md-0">
+                <h5>Quick Links</h5>                <ul class="footer-links list-unstyled">
+                    <li><a href="#"><i class="fas fa-angle-left ms-2"></i>Home</a></li>
+                    <li><a href="#"><i class="fas fa-angle-left ms-2"></i>About Us</a></li>
+                    <li><a href="#"><i class="fas fa-angle-left ms-2"></i>Our Programs</a></li>
+                    <li><a href="#"><i class="fas fa-angle-left ms-2"></i>Projects</a></li>
+                    <li><a href="#"><i class="fas fa-angle-left ms-2"></i>Volunteers</a></li>
+                    <li><a href="#"><i class="fas fa-angle-left ms-2"></i>Contact Us</a></li>
+                    </ul>
+            </div>
+            
+            <!-- المساعدة والدعم -->
+            <div class="col-lg-2 col-md-4 mb-5 mb-md-0">
+                Help and Support                <ul class="footer-links list-unstyled">
+                    <li><a href="#"><i class="fas fa-angle-left ms-2"></i>How to Donate</a></li>
+                    <li><a href="#"><i class="fas fa-angle-left ms-2"></i>Frequently Asked Questions</a></li>
+                    <li><a href="#"><i class="fas fa-angle-left ms-2"></i>Financial Reports</a></li>
+                    <li><a href="#"><i class="fas fa-angle-left ms-2"></i>Privacy Policy</a></li>
+                    <li><a href="#"><i class="fas fa-angle-left ms-2"></i>Terms and Conditions</a></li>
+                    </ul>
+            </div>
+            
+            <!-- الاتصال والنشرة البريدية -->
+            <div class="col-lg-4 col-md-4">
+                <h5>Contact us</h5>                <ul class="list-unstyled contact-info mb-4">
+                    <li class="mb-3">
+                        <div class="d-flex align-items-center">
+                            <div class="contact-icon-small ms-3">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <div>Al Amal Street, Al Noor District, Medina</div>                        </div>
+                    </li>
+                    <li class="mb-3">
+                        <div class="d-flex align-items-center">
+                            <div class="contact-icon-small ms-3">
+                                <i class="fas fa-phone-alt"></i>
+                            </div>
+                            <div dir="ltr">+966 55 555 5555</div>
+                        </div>
+                    </li>
+                    <li class="mb-3">
+                        <div class="d-flex align-items-center">
+                            <div class="contact-icon-small ms-3">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div>info@charity-website.org</div>
+                        </div>
+                    </li>
+                </ul>
+                
+                <h5>Newsletter</h5>
+                <p class="text-light mb-3">Subscribe to our newsletter to receive the latest news and events</p>
+                <form class="newsletter-form">
+                <input type="email" class="newsletter-input" placeholder="Your email" required>
+                <button type="submit" class="newsletter-btn">Subscribe</button>
+                </form>
+            </div>
+        </div>
+        
+        <!-- شريط التذييل السفلي -->
+        <div class="footer-bottom text-center">
+            <div class="row">
+                <div class="col-md-12">
+                    <p class="mb-3">© 2025 Charity Site. All rights reserved</p>                </div>
+            </div>
+            <!-- شريط المدفوعات والشركاء -->
+            <div class="payment-methods mb-3">
+                <div class="d-flex justify-content-center flex-wrap">
+                    <span class="payment-icon mx-2"><i class="fab fa-cc-visa"></i></span>
+                    <span class="payment-icon mx-2"><i class="fab fa-cc-mastercard"></i></span>
+                    <span class="payment-icon mx-2"><i class="fab fa-cc-paypal"></i></span>
+                    <span class="payment-icon mx-2"><i class="fab fa-apple-pay"></i></span>
+                    <span class="payment-icon mx-2"><i class="fas fa-credit-card"></i></span>
+                </div>
+            </div>
+            <!-- زر العودة للأعلى -->
+            <a href="#" class="back-to-top" aria-label="Back to top">                <i class="fas fa-chevron-up"></i>
+            </a>
+        </div>
+    </div>
+</footer>
 <!-- أنماط CSS إضافية للفوتر -->
 </body>
 </html>

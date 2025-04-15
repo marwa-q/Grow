@@ -195,21 +195,13 @@
                 <div class="profile-card">
                     <h5 class="mb-3 text-center">Activity Summary</h5>
                     <div class="row row-cols-2 row-cols-md-4 g-3">
-                        <div class="col text-center profile-stat">
-                            <h3 class="text-success">{{ $activityCount ?? 0 }}</h3>
+                        <div class="col-md-6 text-center profile-stat">
+                            <h3 class="text-success">{{ $activityCount ?? 1 }}</h3>
                             <p>Activities</p>
                         </div>
-                        <div class="col text-center profile-stat">
-                            <h3 class="text-success">{{ $postCount ?? 0}}</h3>
+                        <div class="col-md-6 text-center profile-stat">
+                            <h3 class="text-success">{{ $postCount ?? 1}}</h3>
                             <p>Posts</p>
-                        </div>
-                        <div class="col text-center profile-stat">
-                            <h3 class="text-success">{{ $likedPostsCount ?? 0}}</h3>
-                            <p>Liked Posts</p>
-                        </div>
-                        <div class="col text-center profile-stat">
-                            <h3 class="text-success">{{ $commentsCount ?? 0}}</h3>
-                            <p>Comments</p>
                         </div>
                     </div>
                 </div>  
@@ -393,14 +385,6 @@
                     <!-- Tabs -->
                     <ul class="nav nav-tabs profile-tabs" id="profileTabs" role="tablist">
                         <li class="nav-item" role="presentation">
-                            <button class="nav-link active" id="activities-tab" data-bs-toggle="tab"
-                                data-bs-target="#activities" type="button" role="tab">My Activities</button>
-                        </li>
-                        <li class="nav-item" role="presentation">
-                            <button class="nav-link" id="posts-tab" data-bs-toggle="tab" data-bs-target="#posts"
-                                type="button" role="tab">My Posts</button>
-                        </li>
-                        <li class="nav-item" role="presentation">
                             <button class="nav-link" id="settings-tab" data-bs-toggle="tab" data-bs-target="#settings"
                                 type="button" role="tab">Account Settings</button>
                         </li>
@@ -408,48 +392,6 @@
 
                     <!-- Tab Contents -->
                     <div class="tab-content p-4" id="profileTabsContent">
-
-                        <!-- Activities Tab -->
-                        <div class="tab-pane fade show active" id="activities" role="tabpanel">
-                            <h4 class="mb-4">Recent Activities</h4>
-
-                            @if(isset($activities) && count($activities) > 0)
-                                @foreach($activities as $activity)
-                                    <div class="activity-item border-start border-success border-4 ps-3 mb-4">
-                                        <!-- Activity content -->
-                                    </div>
-                                @endforeach
-                            @else
-                                <div class="alert alert-success">
-                                    No activities found.
-                                </div>
-                            @endif
-
-                            <div class="text-center mt-4">
-                                <button class="btn btn-outline-secondary">View All Activities</button>
-                            </div>
-                        </div>
-
-                        <!-- Posts Tab -->
-                        <div class="tab-pane fade" id="posts" role="tabpanel">
-                            <h4 class="mb-4">My Posts</h4>
-
-                            @if(isset($posts) && count($posts) > 0)
-                                @foreach($posts as $post)
-                                    <div class="card mb-3">
-                                        <!-- post content -->
-                                    </div>
-                                @endforeach
-                            @else
-                                <div class="alert alert-success">
-                                    No posts found. Start sharing your experiences!
-                                </div>
-                            @endif
-
-                            <div class="text-center mt-4">
-                                <button class="btn btn-outline-secondary">View All Posts</button>
-                            </div>
-                        </div>
 
                         <!-- Settings Tab -->
                         <div class="tab-pane fade" id="settings" role="tabpanel">
@@ -542,7 +484,16 @@
 
 
     <div id="image-preview" class="mt-2"></div>
-
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Find the account settings tab and activate it
+            var settingsTab = document.getElementById('settings-tab');
+            if (settingsTab) {
+                var tab = new bootstrap.Tab(settingsTab);
+                tab.show();
+            }
+        });
+    </script>
     <script>
         document.getElementById('profile_image').onchange = function (event) {
             var reader = new FileReader();

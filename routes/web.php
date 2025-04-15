@@ -34,7 +34,7 @@ Route::get('/dashboard', function () {
 
 Route::middleware('auth')->group(function () {
 
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::get('/profile', [ProfileController::class, 'profile'])->name('profile.edit');
     Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     // Add this line:
@@ -44,7 +44,7 @@ Route::middleware('auth')->group(function () {
 });
 
 
-Route::prefix('dashboard')->middleware(['auth', 'verified'])->group(function () {
+Route::prefix('dashboard')->middleware(['auth', 'verified','can:access-dashboard'])->group(function () {
 
     Route::get('/', [DashboardController::class, 'index'])->name('admin.dashboard');
 
